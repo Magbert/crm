@@ -1,0 +1,23 @@
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ProjectTest extends TestCase
+{
+    /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $response = $this->get('/test');
+        $response->dump();
+
+        $this->assertTrue(true);
+    }
+}

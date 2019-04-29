@@ -1,0 +1,23 @@
+// Fonts
+//@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+@import "project/project.scss";
+
+a {
+    color: #14aaf5;
+    cursor: pointer;
+    text-decoration: none;
+}
+.white-block {
+    background: #fff;
+    box-shadow: $main-shadow;
+}
+.p15 {
+    padding: 15px;
+}
