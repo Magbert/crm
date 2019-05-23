@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Projects from "./pages/project/Projects";
 import Project from "./pages/project/Project";
 import Tasks from "./pages/project/Tasks";
+import Task from "./pages/task/Task";
 import Info from "./pages/project/Info";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
@@ -39,6 +40,11 @@ const routes = [
                 path: "info",
                 component: Info,
                 name: "project.info"
+            },
+            {
+                path: "task/:task_id",
+                component: Task,
+                name: "task"
             }
         ]
     },

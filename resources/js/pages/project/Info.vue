@@ -24,8 +24,8 @@
               <editor v-model="description"></editor>
             </div>
           </div>
-
-          <button type="submit" class="btn btn-primary" @click="saveProject">Сохранить</button>
+          <button type="submit" class="btn btn-primary mr-4" @click="saveProject">Сохранить</button>
+          <a class="text-danger" @click="removeProject">Удилить проект</a>
         </div>
       </div>
     </div>
@@ -73,6 +73,14 @@ export default {
       this.$store.dispatch("updateProject").then(() => {
         this.$store.dispatch("fetchProject", { id: this.project.id });
       });
+    },
+    removeProject() {
+      let is_remove = confirm("Вы точно хотите удалить проект?");
+      if (is_remove) {
+        this.$store.dispatch("removeProject").then(() => {
+          this.$router.push({ name: "projects" });
+        });
+      }
     },
     fetchUsers() {
       axios.get("/users/users").then(respose => {

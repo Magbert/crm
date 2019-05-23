@@ -7,10 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class RootTask extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * Возврашает ресур без подзадач
      */
     public function toArray($request)
     {
@@ -20,6 +17,7 @@ class RootTask extends JsonResource
             'completed' => $this->completed,
             'due_at' => $this->due_at,
             'parent_id' => $this->parent_id,
+            'project_id' => $this->project_id,
         ];
     }
 }

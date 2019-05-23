@@ -1,6 +1,7 @@
 <template>
   <div>
-    <tasks-list :tasks="tasks"></tasks-list>
+    <new-task-form @add-task="addTask"/>
+    <tasks-list :tasks="tasks" @select-task="selectTask"></tasks-list>
   </div>
 </template>
 
@@ -8,24 +9,35 @@
 import TasksList from "@/components/task/TasksList";
 
 export default {
-  data(){
+  data() {
     return {
       tasks: []
-    }
+    };
   },
   methods: {
-    fetchTasks(){
+    fetchTasks() {
       axios.get(`projects/${this.$route.params.id}/tasks`).then(response => {
-        this.tasks = response.data.data
+        this.tasks = response.data.data;
       });
+    },
+    selectTask(task) {
+      console.log(task);
+    },
+    addTask(task) {
+      axios
+        .post(`/projects/${this.$route.params.id}/tasks`, {
+          name: task.name
+        })
+        .then(response => {
+          this.tasks.push(response.data.data);
+        });
     }
-
   },
-  mounted(){
+  mounted() {
     this.fetchTasks();
   },
   components: {
-    'tasks-list': TasksList
+    "tasks-list": TasksList
   }
-}
+};
 </script>

@@ -21,6 +21,13 @@ export default {
                 .then(respose => {
                     //console.log(respose);
                 });
+        },
+        removeProject({ context, commit, getters }) {
+            return axios
+                .delete(`/projects/${getters.project.id}`)
+                .then(respose => {
+                    //console.log(respose);
+                });
         }
     },
     getters: {

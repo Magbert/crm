@@ -1,12 +1,21 @@
 <template>
-    <div class="tasks-list">
-        <task-row v-for="task in tasks" :task="task" :key="task.id"></task-row>
-    </div>
+  <div class="tasks-list">
+    <task-row
+      v-for="task in tasks"
+      :task="task"
+      :key="task.id"
+      @select-task="$emit('select-task', task)"
+    />
+  </div>
 </template>
 
 <script>
 export default {
-    props: ['tasks']
+  props: ["tasks"],
+  data() {
+    return {};
+  },
+  methods: {}
 };
 </script>
 

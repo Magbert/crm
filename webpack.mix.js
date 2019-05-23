@@ -18,9 +18,11 @@ mix.js("resources/js/app.js", "public/js").sass(
         import: ["resources/sass/_variables.scss"]
     }
 );
+//   .sourceMaps();
 mix.browserSync("crm.loc");
 
 mix.webpackConfig({
+    devtool: "inline-source-map",
     resolve: {
         extensions: [".js", ".vue", ".json"],
         alias: {

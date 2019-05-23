@@ -10,6 +10,8 @@ class Task extends Model
 {
     use NodeTrait;
 
+    protected $fillable = ['name', 'description', 'project_id', 'due_at'];
+
     protected $dates = ['created_at', 'updated_at', 'due_at'];
     // protected $hidden = ['description'];
 

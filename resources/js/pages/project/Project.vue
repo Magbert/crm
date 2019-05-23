@@ -1,6 +1,6 @@
 <template>
   <div class="project p15 white-block">
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 

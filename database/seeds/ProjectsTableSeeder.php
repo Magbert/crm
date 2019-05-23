@@ -6,7 +6,7 @@ use Faker\Factory as Faker;
 
 class ProjectsTableSeeder extends Seeder
 {
-    protected $max_level = 3;
+    protected $max_level = 2;
 
     public function run()
     {
@@ -41,7 +41,6 @@ class ProjectsTableSeeder extends Seeder
         foreach ($tasks as $task) {
             if ($this->max_level > $level) {
                 $this->addSubtasks($task, $level + 1);
-                //dump($level);
             }
             $parent->appendNode($task);
         }

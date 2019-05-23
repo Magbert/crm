@@ -8,13 +8,13 @@ use App\Http\Resources\TaskCollection;
 class Task extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * Возврашает ресурс с подзадачами
      */
     public function toArray($request)
     {
+        $subtasks = $this->children->makeHidden('description');
+        $ancestors = Task::scoped(['project_id' => $this->project_id])->defaultOrder()->ancestorsOf($this->id, ['name', 'id']);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -22,7 +22,9 @@ class Task extends JsonResource
             'completed' => $this->completed,
             'due_at' => $this->due_at,
             'parent_id' => $this->parent_id,
-            'subtasks' => $this->children->makeHidden('description'),
+            'project_id' => $this->project_id,
+            'subtasks' => $subtasks,
+            'ancestors' => $ancestors,
         ];
     }
 }

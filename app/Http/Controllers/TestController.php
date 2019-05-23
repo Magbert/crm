@@ -10,14 +10,21 @@ class TestController extends Controller
     public function index()
     {
         // $task = Task::find(1);
-        $task = Task::descendantsAndSelf(1)->toTree()->first();
-        $task = Task::descendantsOf(1)->toTree(1);
-        $task = Task::scoped(['project_id' => 1])->withDepth()->get();
-        $task = Task::scoped(['project_id' => 1])->whereIsLeaf()->get();
-        $task = Task::find(2)->descendants()->get();
+        // $task = Task::descendantsAndSelf(1)->toTree()->first();
+        // $task = Task::descendantsOf(1)->toTree(1);
+        // $task = Task::scoped(['project_id' => 1])->withDepth()->get();
+        // $task = Task::scoped(['project_id' => 1])->whereIsLeaf()->get();
+        // $task = Task::find(2)->descendants()->get();
 
         // $tasks_tree = Task::find(1)->get()->toTree();
         // dd($tasks_tree);
-        dd($task);
+
+        //$task = Task::find(15);
+        // $tasks = $task->ancestors;
+        //$tasks = Task::ancestorsOf(8)->toTree()->toArray();
+
+        $tasks = Task::defaultOrder()->ancestorsOf(64, ['name', 'id'])->toArray();
+
+        dd($tasks);
     }
 }

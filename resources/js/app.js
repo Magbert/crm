@@ -9,6 +9,7 @@ import API from "./API";
 
 import Editor from "@/components/editor";
 import TaskRow from "@/components/task/TaskRow";
+import NewTaskForm from "@/components/task/NewTaskForm";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import locale from "element-ui/lib/locale/lang/ru-RU";
@@ -20,6 +21,7 @@ Vue.use(ElementUI, { locale });
 Vue.component("pagination", pagination);
 Vue.component("editor", Editor);
 Vue.component("task-row", TaskRow);
+Vue.component("new-task-form", NewTaskForm);
 
 const router = new VueRouter({
     routes,

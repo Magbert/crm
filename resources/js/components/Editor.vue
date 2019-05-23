@@ -17,12 +17,7 @@ import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
 
 export default {
-  props: {
-    value: {
-      type: String,
-      required: true
-    }
-  },
+  props: ["value"],
 
   data() {
     return {
