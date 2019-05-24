@@ -13,9 +13,13 @@ Route::prefix('projects')->group(function () {
             Route::get('/', 'TaskController@index')->name("index");
             Route::post('/', 'TaskController@store')->name("store");
             Route::get('/{task}', 'TaskController@show')->name("show");
-            Route::put('/{task}', 'TaskController@update')->name("update");
         });
     });
+});
+
+Route::prefix('tasks')->group(function () {
+    Route::put('/{task}', 'TaskController@update')->name("update");
+    Route::delete('/{task}', 'TaskController@destroy')->name("tasks.destroy");
 });
 
 

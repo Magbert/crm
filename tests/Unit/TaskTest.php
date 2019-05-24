@@ -115,7 +115,10 @@ class TaskTest extends TestCase
 
     /** @test */
     public function test_task_delete()
-    { }
+    {
+        $response = $this->json('DELETE', route('tasks.destroy', $this->task->id));
+        $response->assertStatus(200);
+    }
 
     /** @test */
     public function test_task_move()

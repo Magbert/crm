@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="main-wrapp">
+    <div class="main-wrapp" :class="this.$store.getters.mainclass">
       <div class="crm-ui">
         <sidebar-component></sidebar-component>
         <main class="main-container">

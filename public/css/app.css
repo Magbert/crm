@@ -10686,6 +10686,11 @@ a {
   border-top: 1px solid #e0e6e8;
 }
 
+.small-width .content {
+  width: 1000px;
+  margin: auto;
+}
+
 .task-row {
   border-bottom: 1px solid #e0e6e8;
   height: 45px;

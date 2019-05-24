@@ -67,6 +67,7 @@ export default {
     }
   },
   created() {
+    this.$store.commit("setMainClass", "");
     this.fetchUsers();
   },
   components: {

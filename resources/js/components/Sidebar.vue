@@ -2,7 +2,7 @@
   <div class="sidebar" id="sidebar">
     <a class="sidebar__header" href="#"></a>
     <div class="sidebar__body">
-      <router-link :to="{ name: 'home' }" class="sidebar__link">Главная</router-link>
+      <!-- <router-link :to="{ name: 'home' }" class="sidebar__link">Главная</router-link> -->
       <router-link :to="{ name: 'projects' }" class="sidebar__link">Проекты</router-link>
 
       <!-- <router-link :to="{name : 'logout'}" v-if="loggedIn">logout</router-link>

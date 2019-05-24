@@ -1,7 +1,7 @@
 <template>
   <div>
-    <new-task-form @add-task="addTask"/>
-    <tasks-list :tasks="tasks" @select-task="selectTask"></tasks-list>
+    <new-task-form @add-task="addRootTask"/>
+    <tasks-list :tasks="rootTasks" v-if="rootTasks" mode="rootTasks"></tasks-list>
   </div>
 </template>
 
@@ -9,32 +9,26 @@
 import TasksList from "@/components/task/TasksList";
 
 export default {
-  data() {
-    return {
-      tasks: []
-    };
-  },
   methods: {
-    fetchTasks() {
-      axios.get(`projects/${this.$route.params.id}/tasks`).then(response => {
-        this.tasks = response.data.data;
+    fetchRootTasks() {
+      this.$store.dispatch("fetchRootTasks", {
+        project_id: this.$route.params.id
       });
     },
-    selectTask(task) {
-      console.log(task);
-    },
-    addTask(task) {
-      axios
-        .post(`/projects/${this.$route.params.id}/tasks`, {
-          name: task.name
-        })
-        .then(response => {
-          this.tasks.push(response.data.data);
-        });
+    addRootTask(task) {
+      this.$store.dispatch("addRootTask", {
+        task_name: task.name,
+        project_id: this.$route.params.id
+      });
     }
   },
-  mounted() {
-    this.fetchTasks();
+  computed: {
+    rootTasks() {
+      return this.$store.getters.rootTasks;
+    }
+  },
+  created() {
+    this.fetchRootTasks();
   },
   components: {
     "tasks-list": TasksList

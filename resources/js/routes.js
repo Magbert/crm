@@ -8,6 +8,7 @@ import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 
 import ProjectHeader from "./components/project/ProjectHeader";
+import ProjectsHeader from "./components/project/ProjectsHeader";
 
 const routes = [
     {
@@ -20,8 +21,12 @@ const routes = [
     },
     {
         path: "/projects",
-        component: Projects,
-        name: "projects"
+        // component: Projects,
+        name: "projects",
+        components: {
+            default: Projects,
+            header: ProjectsHeader
+        }
     },
     {
         path: "/project/:id",

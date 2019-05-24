@@ -50,11 +50,18 @@ class TaskController extends Controller
     /**
      * Обновление задачи
      */
-    public function update(StoreTask $request, Project $project, Task $task)
+    public function update(StoreTask $request,  Task $task)
     {
         $affected = $task->update($request->all());
 
         return Response::make('', 202);
+    }
+
+    public function destroy(Task $task)
+    {
+        $affected = $task->delete();
+
+        return Response::make('', 200);
     }
 
 
