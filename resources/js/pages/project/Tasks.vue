@@ -16,10 +16,12 @@ export default {
       });
     },
     addRootTask(task) {
-      this.$store.dispatch("addRootTask", {
-        task_name: task.name,
-        project_id: this.$route.params.id
-      });
+      if (task.name) {
+        this.$store.dispatch("addRootTask", {
+          task_name: task.name,
+          project_id: this.$route.params.id
+        });
+      }
     }
   },
   computed: {

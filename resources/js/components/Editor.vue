@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       editorOption: {
+        // theme: "bubble",
         modules: {
           toolbar: [
             // [{ size: ["small", false, "large"] }],

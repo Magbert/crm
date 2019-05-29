@@ -1,7 +1,8 @@
 export default {
     state: {
         task: null,
-        rootTasks: []
+        rootTasks: [],
+        tasksTree: []
     },
     mutations: {
         setTask(state, task) {
@@ -9,6 +10,9 @@ export default {
         },
         setRootTasks(state, tasks) {
             state.rootTasks = tasks;
+        },
+        setTasksTree(state, tasks) {
+            state.tasksTree = tasks;
         },
         addSubTask(state, task) {
             state.task.subtasks.push(task);
@@ -25,29 +29,36 @@ export default {
     },
     actions: {
         fetchRootTasks(context, payload) {
-            axios.get(`projects/${payload.project_id}/tasks`).then(response => {
+            axios.get(`tasks/root/${payload.project_id}`).then(response => {
                 context.commit("setRootTasks", response.data.data);
             });
         },
-        fetchTask(context, ids) {
-            axios
-                .get(`/projects/${ids.project_id}/tasks/${ids.task_id}`)
-                .then(response => {
-                    context.commit("setTask", response.data.data);
-                });
+
+        fetchTasksTree(context, payload) {
+            axios.get(`tasks/tree/${payload.project_id}`).then(response => {
+                context.commit("setTasksTree", response.data.data);
+            });
         },
+
+        fetchTask(context, payload) {
+            axios.get(`/tasks/${payload.task_id}`).then(response => {
+                context.commit("setTask", response.data.data);
+            });
+        },
+
         addRootTask(context, payload) {
             axios
-                .post(`/projects/${payload.project_id}/tasks`, {
+                .post(`/tasks/${payload.project_id}`, {
                     name: payload.task_name
                 })
                 .then(response => {
                     context.commit("addRootTasks", response.data.data);
                 });
         },
+
         addSubTask(context, payload) {
             axios
-                .post(`/projects/${payload.project_id}/tasks`, {
+                .post(`/tasks/${payload.project_id}`, {
                     name: payload.task_name,
                     parent: payload.parent_id
                 })
@@ -55,8 +66,8 @@ export default {
                     context.commit("addSubTask", response.data.data);
                 });
         },
-        updateTask({ context, commit, getters }, payload) {
-            console.log(getters.task);
+
+        updateTask({ getters }) {
             return axios
                 .put(`/tasks/${getters.task.id}`, {
                     name: getters.task.name,
@@ -66,11 +77,13 @@ export default {
                     console.log(respose);
                 });
         },
+
         removeSubTask(context, payload) {
             return axios.delete(`/tasks/${payload.task_id}`).then(response => {
                 context.commit("removeSubTask", payload.task_index);
             });
         },
+
         removeRootTask(context, payload) {
             return axios.delete(`/tasks/${payload.task_id}`).then(response => {
                 context.commit("removeRootTask", payload.task_index);
@@ -79,6 +92,7 @@ export default {
     },
     getters: {
         task: state => state.task,
-        rootTasks: state => state.rootTasks
+        rootTasks: state => state.rootTasks,
+        tasksTree: state => state.tasksTree
     }
 };

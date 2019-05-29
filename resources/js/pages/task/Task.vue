@@ -69,21 +69,26 @@ export default {
   },
   methods: {
     addTask(new_task) {
-      this.$store.dispatch("addSubTask", {
-        task_name: new_task.name,
-        parent_id: this.task.id,
-        project_id: this.$route.params.id
-      });
+      if (new_task.name) {
+        this.$store.dispatch("addSubTask", {
+          task_name: new_task.name,
+          parent_id: this.task.id,
+          project_id: this.$route.params.id
+        });
+      }
     },
     fetchTasks() {
       this.$store.dispatch("fetchTask", {
-        task_id: this.$route.params.task_id,
-        project_id: this.$route.params.id
+        task_id: this.$route.params.task_id
       });
     },
     saveTask() {
       this.$store.dispatch("updateTask", { task_id: this.task.id }).then(() => {
         this.fetchTasks();
+        this.$message({
+          message: "Задача обновлена!",
+          type: "success"
+        });
       });
     }
   },

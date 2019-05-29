@@ -25,7 +25,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary mr-4" @click="saveProject">Сохранить</button>
-          <a class="text-danger" @click="removeProject">Удилить проект</a>
+          <a class="text-danger" @click="removeProject">Удалить проект</a>
         </div>
       </div>
     </div>
@@ -72,6 +72,10 @@ export default {
     saveProject() {
       this.$store.dispatch("updateProject").then(() => {
         this.$store.dispatch("fetchProject", { id: this.project.id });
+        this.$message({
+          message: "Проект обновлен!",
+          type: "success"
+        });
       });
     },
     removeProject() {

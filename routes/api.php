@@ -1,5 +1,6 @@
 <?php
 
+// Projects
 Route::prefix('projects')->group(function () {
     Route::name('projects.')->group(function () {
         Route::get('/', 'ProjectController@index')->name("index");
@@ -8,22 +9,22 @@ Route::prefix('projects')->group(function () {
         Route::put('/{project}', 'ProjectController@update')->name("update");
         Route::delete('/{project}', 'ProjectController@destroy')->name("destroy");
     });
+});
+
+// Tasks
+Route::prefix('tasks')->group(function () {
     Route::name('tasks.')->group(function () {
-        Route::prefix('{project}/tasks')->group(function () {
-            Route::get('/', 'TaskController@index')->name("index");
-            Route::post('/', 'TaskController@store')->name("store");
-            Route::get('/{task}', 'TaskController@show')->name("show");
-        });
+        Route::get('/root/{project}', 'TaskController@index')->name("index");
+        Route::get('/tree/{project}', 'TaskController@tree')->name("tree");
+        Route::get('/{task}', 'TaskController@show')->name("show");
+        Route::post('/{project}', 'TaskController@store')->name("store");
+        Route::put('/{task}', 'TaskController@update')->name("update");
+        Route::delete('/{task}', 'TaskController@destroy')->name("destroy");
     });
 });
 
-Route::prefix('tasks')->group(function () {
-    Route::put('/{task}', 'TaskController@update')->name("update");
-    Route::delete('/{task}', 'TaskController@destroy')->name("tasks.destroy");
-});
 
-
-
+// Users
 Route::prefix('users')->name('user.')->group(function () {
     Route::get('/', 'UserController@current')->name("current");
     Route::get('/users', 'UserController@index')->name("index");

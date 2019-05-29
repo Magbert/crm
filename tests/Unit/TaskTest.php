@@ -104,14 +104,14 @@ class TaskTest extends TestCase
             'name' => 'Name update'
         ];
 
-        $response = $this->json('PUT', route('tasks.update', [$this->project->id,  $this->task->id]), $data);
+        $response = $this->json('PUT', route('tasks.update', [$this->task->id]), $data);
 
         $response->assertStatus(202);
     }
 
     /** @test */
-    public function test_task_update()
-    { }
+    // public function test_task_update()
+    // { }
 
     /** @test */
     public function test_task_delete()
@@ -121,6 +121,6 @@ class TaskTest extends TestCase
     }
 
     /** @test */
-    public function test_task_move()
-    { }
+    // public function test_task_move()
+    // { }
 }

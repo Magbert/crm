@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Http\Resources\TaskCollection;
+use App\Http\Resources\TreeTaskCollection;
 use App\Task;
 use App\Http\Resources\Task as TaskResource;
 use App\Http\Resources\RootTaskCollection;
@@ -57,6 +58,9 @@ class TaskController extends Controller
         return Response::make('', 202);
     }
 
+    /**
+     * Удаление задачи
+     */
     public function destroy(Task $task)
     {
         $affected = $task->delete();
@@ -64,15 +68,16 @@ class TaskController extends Controller
         return Response::make('', 200);
     }
 
-
-
-
-
-
-
-    // public function tasksTree(Project $project)
-    // { 
-    //     $tasks_tree = $project->tasks()->minified()->get()->toTree();
-    //     return new TaskCollection($tasks_tree);
-    // }
+    /**
+     * Возврашает задачи проекта в виде дерево
+     */
+    public function tree(Project $project)
+    {
+        $tasks = $project->tasks()->get();
+        return (new TreeTaskCollection($tasks->toTree()))->additional([
+            'meta' => [
+                'count' => $tasks->count(),
+            ]
+        ]);
+    }
 }

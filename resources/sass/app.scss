@@ -8,6 +8,71 @@
 @import "~bootstrap/scss/bootstrap";
 
 @import "project/project.scss";
+.main-wrapp {
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 0;
+}
+.crm-ui {
+    display: flex;
+    flex: 1;
+    min-height: 1px;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 920px;
+    position: relative;
+}
+.content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 1px;
+    position: relative;
+    padding: 10px 10px 0 10px;
+}
+.project {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 1px;
+    position: relative;
+}
+
+.simple-textarea {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    border: 1px solid #d5dce0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0 9px;
+    min-height: 70px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    transition: border-color 100ms;
+    &:focus {
+        border-color: #9ca6af;
+        box-shadow: inset 0 1px #e0e6e8;
+        outline: none;
+    }
+    &:hover {
+        border-color: #d5dce0;
+    }
+}
 
 a {
     color: #14aaf5;
@@ -38,6 +103,11 @@ a {
     .content {
         width: 1000px;
         margin: auto;
+    }
+}
+.full-width {
+    .content {
+        width: 100%;
     }
 }
 //task-row =====================================================
@@ -97,3 +167,5 @@ a {
         border-radius: 0 4px 4px 0;
     }
 }
+
+@import "tasks-tree";

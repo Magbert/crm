@@ -3,12 +3,15 @@ import Projects from "./pages/project/Projects";
 import Project from "./pages/project/Project";
 import Tasks from "./pages/project/Tasks";
 import Task from "./pages/task/Task";
+import TasksTree from "./pages/task/TasksTree";
+// import TasksTree2 from "./pages/task/TasksTree2";
 import Info from "./pages/project/Info";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 
 import ProjectHeader from "./components/project/ProjectHeader";
 import ProjectsHeader from "./components/project/ProjectsHeader";
+import TaskComp from "./components/task/Task";
 
 const routes = [
     {
@@ -40,6 +43,19 @@ const routes = [
                 path: "tasks",
                 component: Tasks,
                 name: "project.tasks"
+            },
+            {
+                path: "tree",
+                component: TasksTree,
+                name: "tree",
+                children: [
+                    {
+                        path: ":task_id",
+                        component: TaskComp,
+                        name: "tree-task"
+                    }
+                ]
+                //TaskComp
             },
             {
                 path: "info",
