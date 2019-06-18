@@ -12,7 +12,7 @@
       </span>
     </div>
     <div class="header__nav">
-      <router-link :to="{name: 'project.tasks', params: { id: project.id }}">Задачи</router-link>
+      <router-link :to="{name: 'tasks', params: { id: project.id }}">Задачи</router-link>
       <router-link :to="{name: 'project.info', params: { id: project.id }}">Проект</router-link>
     </div>
   </div>

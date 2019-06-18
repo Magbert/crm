@@ -12,7 +12,7 @@ class Task extends JsonResource
      */
     public function toArray($request)
     {
-        $subtasks = $this->children->makeHidden('description');
+        $children = $this->children->makeHidden('description');
         $ancestors = Task::scoped(['project_id' => $this->project_id])->defaultOrder()->ancestorsOf($this->id, ['name', 'id']);
 
         return [
@@ -20,11 +20,12 @@ class Task extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'completed' => $this->completed,
-            'due_at' => $this->due_at,
+            'due_time' => $this->due_time,
             'parent_id' => $this->parent_id,
             'project_id' => $this->project_id,
-            'subtasks' => $subtasks,
+            'children' => $children,
             'ancestors' => $ancestors,
+            'show' => true,
         ];
     }
 }

@@ -12,16 +12,32 @@ Route::prefix('projects')->group(function () {
 });
 
 // Tasks
-Route::prefix('tasks')->group(function () {
-    Route::name('tasks.')->group(function () {
-        Route::get('/root/{project}', 'TaskController@index')->name("index");
-        Route::get('/tree/{project}', 'TaskController@tree')->name("tree");
-        Route::get('/{task}', 'TaskController@show')->name("show");
-        Route::post('/{project}', 'TaskController@store')->name("store");
-        Route::put('/{task}', 'TaskController@update')->name("update");
-        Route::delete('/{task}', 'TaskController@destroy')->name("destroy");
+// Route::group(
+//     [
+//         'namespace' => 'Task',
+//         'prefix' => 'tasks',
+//         'name' => 'tasks.'
+//     ]
+// )->group(function () { 
+
+// });
+
+Route::namespace('Task')->group(function () {
+    Route::prefix('tasks')->group(function () {
+        Route::name('tasks.')->group(function () {
+            Route::get('/root/{project}', 'TaskController@index')->name("index");
+            Route::get('/tree/{project}', 'TaskController@tree')->name("tree");
+            Route::put('/tree/{project}', 'TaskController@rebuild')->name("rebuild");
+            Route::get('/{task}', 'TaskController@show')->name("show");
+            Route::post('/{project}', 'TaskController@store')->name("store");
+            Route::put('/{task}', 'TaskController@update')->name("update");
+            Route::delete('/{task}', 'TaskController@destroy')->name("destroy");
+
+            Route::put('/{task}/due_date', 'TaskTimeController@setDueDate')->name("set_due_date");
+        });
     });
 });
+
 
 
 // Users

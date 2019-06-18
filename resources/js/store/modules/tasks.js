@@ -1,42 +1,75 @@
+import { findDeep, removeDeep } from "../../helpers";
+
+const updateTask = _.debounce(function(payload) {
+    return axios.put(`tasks/${payload.task_id}`, payload);
+}, 500);
+
 export default {
     state: {
         task: null,
-        rootTasks: [],
-        tasksTree: []
+        tasks: []
     },
     mutations: {
+        resetTask: state => (state.task = null),
         setTask(state, task) {
             state.task = Object.assign({}, state.task, task);
         },
-        setRootTasks(state, tasks) {
-            state.rootTasks = tasks;
+        setTasks: (state, tasks) => (state.tasks = tasks),
+
+        updateTask(state, payload) {
+            state.task = Object.assign({}, state.task, payload);
         },
-        setTasksTree(state, tasks) {
-            state.tasksTree = tasks;
+
+        updateTaskInTree(state, payload) {
+            let task = findDeep(state.tasks, payload.task_id);
+            for (let prop in payload) {
+                if (task[prop]) {
+                    task[prop] = payload[prop];
+                }
+            }
         },
+
+        /**
+         *
+         * @param {*} state
+         * @param {parent_id, tasks} payload
+         * Обновление сортировки задач
+         */
+        updateTasksOrder(state, payload) {
+            if (payload.parent_id) {
+                //Если перемешены подзадачи
+                let task = findDeep(state.tasks, payload.parent_id);
+                task.children = payload.tasks;
+            } else {
+                //Если перемешены рутовые задачи
+                state.tasks = payload.tasks;
+            }
+        },
+
         addSubTask(state, task) {
-            state.task.subtasks.push(task);
+            let parent = findDeep(state.tasks, task.parent_id);
+            parent.children.push(task);
         },
-        addRootTasks(state, task) {
-            state.rootTasks.push(task);
+        addRootTask(state, task) {
+            state.tasks.push(task);
         },
-        removeRootTask(state, index) {
-            state.rootTasks.splice(index, 1);
-        },
-        removeSubTask(state, index) {
-            state.task.subtasks.splice(index, 1);
+        removeTask(state, id) {
+            removeDeep(state.tasks, id);
         }
     },
     actions: {
-        fetchRootTasks(context, payload) {
-            axios.get(`tasks/root/${payload.project_id}`).then(response => {
-                context.commit("setRootTasks", response.data.data);
-            });
+        updateTasksOrder(context, payload) {
+            context.commit("updateTasksOrder", payload.tasks);
+            axios
+                .put(`tasks/tree/${payload.project_id}`, {
+                    tree: context.state.tasks
+                })
+                .then(response => {});
         },
 
-        fetchTasksTree(context, payload) {
+        fetchTasks(context, payload) {
             axios.get(`tasks/tree/${payload.project_id}`).then(response => {
-                context.commit("setTasksTree", response.data.data);
+                context.commit("setTasks", response.data.data);
             });
         },
 
@@ -52,7 +85,7 @@ export default {
                     name: payload.task_name
                 })
                 .then(response => {
-                    context.commit("addRootTasks", response.data.data);
+                    context.commit("addRootTask", response.data.data);
                 });
         },
 
@@ -67,32 +100,26 @@ export default {
                 });
         },
 
-        updateTask({ getters }) {
-            return axios
-                .put(`/tasks/${getters.task.id}`, {
-                    name: getters.task.name,
-                    description: getters.task.description
-                })
-                .then(respose => {
-                    console.log(respose);
-                });
+        updateTask(context, payload) {
+            if (context.getters.task.id == payload.task_id) {
+                context.commit("updateTask", payload);
+            }
+            context.commit("updateTaskInTree", payload);
+            updateTask(payload);
         },
 
-        removeSubTask(context, payload) {
+        removeTask(context, payload) {
             return axios.delete(`/tasks/${payload.task_id}`).then(response => {
-                context.commit("removeSubTask", payload.task_index);
+                context.commit("removeTask", payload.task_id);
             });
         },
 
-        removeRootTask(context, payload) {
-            return axios.delete(`/tasks/${payload.task_id}`).then(response => {
-                context.commit("removeRootTask", payload.task_index);
-            });
+        setDueTime(state, payload) {
+            axios.put(`tasks/${payload.task_id}`, payload.data);
         }
     },
     getters: {
         task: state => state.task,
-        rootTasks: state => state.rootTasks,
-        tasksTree: state => state.tasksTree
+        tasks: state => state.tasks
     }
 };

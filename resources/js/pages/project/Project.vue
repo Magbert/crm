@@ -1,7 +1,6 @@
 <template>
   <div class="project">
     <router-view></router-view>
-    <!-- :key="$route.fullPath" -->
   </div>
 </template>
 
@@ -10,7 +9,6 @@ export default {
   data() {
     return {};
   },
-  //methods: {},
   computed: {},
   beforeCreate() {
     this.$store.commit("setMainClass", "small-width");

@@ -4,7 +4,7 @@
     <div class="sidebar__body">
       <!-- <router-link :to="{ name: 'home' }" class="sidebar__link">Главная</router-link> -->
       <router-link :to="{ name: 'projects' }" class="sidebar__link">Проекты</router-link>
-      <router-link :to="{ name: 'tree',  params: { id: 1 } }" class="sidebar__link">Дерево</router-link>
+      <!-- <router-link :to="{ name: 'tree',  params: { id: 1 } }" class="sidebar__link">Дерево</router-link> -->
 
       <!-- <router-link :to="{name : 'logout'}" v-if="loggedIn">logout</router-link>
       <router-link to="/login" v-if="!loggedIn" class="sidebar__link">Login</router-link>-->

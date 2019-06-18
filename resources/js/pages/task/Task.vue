@@ -1,55 +1,72 @@
 <template>
-  <div class="task" v-if="task">
-    <div class="task__name">{{ task.name }}</div>
-
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item
-        :to="{ name: 'project.tasks', id: project.id }"
-        v-if="project"
-        :title="project.name"
-      >{{ project.name }}</el-breadcrumb-item>
-      <el-breadcrumb-item
-        v-for="ancestor in task.ancestors"
-        :key="ancestor.id"
-        :to="{ name: 'task', params: { task_id: ancestor.id } }"
-        :title="ancestor.name"
-      >{{ ancestor.name }}</el-breadcrumb-item>
-      <el-breadcrumb-item :title="task.name">{{ task.name }}</el-breadcrumb-item>
-    </el-breadcrumb>
-
-    <el-tabs type="card" v-model="activeTab">
-      <el-tab-pane label="Описание" name="description">
-        <div class="input-group mb-3">
-          <el-input placeholder="Please input" v-model="name"></el-input>
+  <div class="single-task" v-if="task" :key="task.id">
+    <div class="scroller-container">
+      <div class="single-task__header">
+        <el-button icon="el-icon-close" plain @click="close" class="border-0"></el-button>
+        <div class="single-task__header__tools">
+          <el-button type="danger" icon="el-icon-delete" plain circle @click="remove" size="mini"></el-button>
         </div>
-        <div class="input-group mb-3">
+      </div>
+      <div class="scrollable">
+        <!-- single-task__name__input -->
+        <div class="single-task__name-input">
+          <div class="single-task__name-input__inner">
+            <div class="single-task__name-input__shadow">{{ name }}|</div>
+            <textarea
+              class="single-task__name-input__textarea simple-textarea"
+              placeholder="Название задачи"
+              v-model="name"
+              @keydown.enter.exact.prevent
+            ></textarea>
+          </div>
+        </div>
+        <!--/ ssingle-task__name__input -->
+
+        <div class="date_asigne_row">
+          <el-date-picker
+            v-model="due_time"
+            type="date"
+            placeholder="Укажите дату"
+            :format="dateFormat"
+            value-format="timestamp"
+            size="small"
+          ></el-date-picker>
+        </div>
+
+        <!-- single-task__description -->
+        <div class="single-task__description">
           <editor v-model="description"></editor>
         </div>
-        <button type="submit" class="btn btn-primary mr-4" @click="saveTask">Сохранить</button>
-      </el-tab-pane>
-      <el-tab-pane label="Подзадачи" name="second">
-        <new-task-form @add-task="addTask"/>
-        <tasks-list :tasks="task.subtasks" mode="subTasks"></tasks-list>
-      </el-tab-pane>
-    </el-tabs>
+        <!-- /single-task__description -->
+      </div>
+      <div class="single-task__footer">sdfsdf</div>
+    </div>
   </div>
 </template>
 
 <script>
-import TasksList from "@/components/task/TasksList";
+import { taskMixins } from "../../mixins";
+import _ from "lodash";
+
 export default {
   data() {
-    return {
-      activeTab: "description"
-    };
+    return {};
   },
   computed: {
+    due_time: {
+      get() {
+        return this.task.due_time;
+      },
+      set(due_time) {
+        this.updateTask("due_time", due_time);
+      }
+    },
     name: {
       get() {
         return this.task.name;
       },
       set(name) {
-        this.$store.commit("setTask", { name });
+        this.updateTask("name", name);
       }
     },
     description: {
@@ -57,68 +74,50 @@ export default {
         return this.task.description;
       },
       set(description) {
-        this.$store.commit("setTask", { description });
+        this.updateTask("description", description);
       }
-    },
-    project() {
-      return this.$store.getters.project;
     },
     task() {
       return this.$store.getters.task;
     }
   },
   methods: {
-    addTask(new_task) {
-      if (new_task.name) {
-        this.$store.dispatch("addSubTask", {
-          task_name: new_task.name,
-          parent_id: this.task.id,
-          project_id: this.$route.params.id
-        });
-      }
+    remove() {
+      this.$store.dispatch("removeTask", {
+        project_id: this.$route.params.id,
+        task_id: this.task.id
+      });
+      this.successMsg("Задача удалена!");
+
+      this.close();
     },
-    fetchTasks() {
-      this.$store.dispatch("fetchTask", {
-        task_id: this.$route.params.task_id
+    close() {
+      this.$store.commit("resetTask");
+
+      this.$router.push({
+        name: "tasks",
+        params: { id: this.$route.params.id }
       });
     },
-    saveTask() {
-      this.$store.dispatch("updateTask", { task_id: this.task.id }).then(() => {
-        this.fetchTasks();
-        this.$message({
-          message: "Задача обновлена!",
-          type: "success"
-        });
+
+    updateTask(key, value) {
+      this.$store.dispatch("updateTask", {
+        task_id: this.task.id,
+        [key]: value
       });
+    },
+
+    fetchTasks(task_id) {
+      this.$store.dispatch("fetchTask", { task_id });
     }
   },
-  created() {
-    this.fetchTasks();
+  beforeRouteUpdate(to, from, next) {
+    this.fetchTasks(to.params.task_id);
+    next();
   },
-  components: {
-    "tasks-list": TasksList
-  }
+  created() {
+    this.fetchTasks(this.$route.params.task_id);
+  },
+  mixins: [taskMixins]
 };
 </script>
-
-<style lang="scss">
-.task {
-  &__name {
-    font-size: 22px;
-    margin-bottom: 15px;
-  }
-}
-
-.el-breadcrumb {
-  margin-bottom: 30px;
-  //   background-color: #eff7ff;
-  padding: 10px;
-  &__inner {
-    max-width: 200px;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}
-</style>

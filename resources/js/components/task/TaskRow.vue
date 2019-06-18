@@ -1,36 +1,62 @@
 <template>
-  <div class="task-row">
+  <div @contextmenu.prevent="$emit('open-cmenu', $event, {task_id: task.id })">
     <router-link
-      :to="{ name: 'task', params: { task_id: task.id } }"
-      class="task-row__link"
-    >{{ task.name }}</router-link>
-
-    <el-dropdown trigger="click" class="task-dropdown" @command="handleCommand">
-      <span class="task-dropdown__link">
-        <i class="el-icon-arrow-down"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown" class="task-dropdown__popper">
-        <el-dropdown-item icon="el-icon-delete" class="danger-color" command="remove-task">Удалить</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+      class="tasks-tree__row"
+      :to="{ name: 'task',  params: { id: projectId, task_id: task.id } }"
+      tag="div"
+    >
+      <div class="tasks-tree__row__left">
+        <i class="handle">
+          <svg class="drag-icon" focusable="false" viewBox="0 0 32 32">
+            <path
+              d="M14,5.5c0,1.7-1.3,3-3,3s-3-1.3-3-3s1.3-3,3-3S14,3.8,14,5.5z M21,8.5c1.7,0,3-1.3,3-3s-1.3-3-3-3s-3,1.3-3,3S19.3,8.5,21,8.5z M11,12.5c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S12.7,12.5,11,12.5z M21,12.5c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S22.7,12.5,21,12.5z M11,22.5c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S12.7,22.5,11,22.5z M21,22.5c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S22.7,22.5,21,22.5z"
+            ></path>
+          </svg>
+        </i>
+        <span class="tasks-tree__row__name">{{ task.name }}</span>
+      </div>
+      <div class="tasks-tree__row__right" @click.stop>
+        <el-date-picker
+          v-if="due_time"
+          v-model="due_time"
+          type="date"
+          placeholder
+          :format="dateFormat"
+          value-format="timestamp"
+          size="mini"
+          :clearable="false"
+          prefix-icon="non"
+          v-bind:class="{'short-date': isCurrentDate(due_time)}"
+          align="right"
+        ></el-date-picker>
+      </div>
+    </router-link>
   </div>
 </template>
 
 <script>
-//$emit('remove-task', index)
+import { taskMixins } from "../../mixins";
+// @mouseover="handleHover(task.id, true)"
+//           @mouseout="handleHover(task.id, false)"
 export default {
-  props: ["task", "index"],
-  methods: {
-    handleCommand(command) {
-      this.$emit(command, {
-        task_id: this.task.id,
-        task_index: this.index
-      });
+  props: ["projectId", "task"],
+  computed: {
+    due_time: {
+      get() {
+        return this.task.due_time;
+      },
+      set(due_time) {
+        this.$store.dispatch("updateTask", {
+          task_id: this.task.id,
+          due_time: due_time
+        });
+      }
     }
-  }
+  },
+  mixins: [taskMixins]
 };
 </script>
 
 <style lang="scss">
-@import "sass/_variables.scss";
+//
 </style>

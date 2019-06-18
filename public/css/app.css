@@ -10655,6 +10655,20 @@ a.text-dark:focus {
   }
 }
 
+.projects-page-wrapp {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 1px;
+}
+
+.projects-page {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
 .main-wrapp {
   display: flex;
   flex-direction: column;
@@ -10824,12 +10838,42 @@ a {
   border-radius: 0 4px 4px 0;
 }
 
+.el-date-editor .el-input__inner {
+  cursor: pointer;
+}
+
+.el-picker-panel {
+  transition: none !important;
+}
+
+.v-context.context-menu {
+  padding: 0;
+}
+
+.v-context.context-menu li > a {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.25rem;
+}
+
+.v-context.context-menu .del-link a {
+  color: red;
+}
+
 .tasks-tree {
   display: flex;
   flex: 1 1 auto;
   min-height: 1px;
   display: flex;
   justify-content: center;
+}
+
+.tasks-tree .form-new-task {
+  display: flex;
+  width: 100%;
+  padding: 10px;
 }
 
 .tasks-tree .scrollable {
@@ -10850,6 +10894,7 @@ a {
   display: flex;
   flex: 0 0 auto;
   height: 50px;
+  align-items: center;
   background: #fff;
   border-bottom: 1px solid #e0e6e8;
   border-radius: 4px 4px 0 0;
@@ -10875,6 +10920,7 @@ a {
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  justify-content: space-between;
   height: 35px;
   border-radius: 4px 0 0 4px;
   background-color: #fff;
@@ -10882,6 +10928,15 @@ a {
   border-style: solid;
   border-width: 0 0 1px 4px;
   color: #0a192c;
+  cursor: pointer;
+}
+
+.tasks-tree__row__left {
+  align-items: center;
+  display: flex;
+  flex: 1 1000 auto;
+  min-width: 1px;
+  padding-right: 10px;
 }
 
 .tasks-tree__row__name {
@@ -10900,6 +10955,21 @@ a {
 
 .tasks-tree__row.router-link-active {
   background-color: #edf8ff;
+}
+
+.tasks-tree__row .el-date-editor .el-input__inner {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: right;
+}
+
+.tasks-tree__row .el-date-editor.el-input {
+  width: 72px;
+}
+
+.tasks-tree__row .el-date-editor.el-input.short-date {
+  width: 44px;
 }
 
 .task-item {
@@ -10987,15 +11057,36 @@ a {
   margin-left: 15px;
   background-color: #fff;
   box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+  border-radius: 4px 4px 0 0;
+}
+
+.single-task .scrollable {
+  flex: 1 1 auto;
 }
 
 .single-task__header {
   display: flex;
+  align-items: center;
   flex: 0 0 auto;
   height: 50px;
   background: #fff;
   border-bottom: 1px solid #e0e6e8;
   border-radius: 4px 4px 0 0;
+  padding: 0 10px;
+}
+
+.single-task__header__tools {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.single-task__footer {
+  height: 50px;
+  padding: 0 10px;
+  flex: 0 0 auto;
+  background-color: #fff;
+  border-top: 1px solid #e0e6e8;
 }
 
 .single-task__name-input {
@@ -11044,6 +11135,33 @@ a {
   text-rendering: optimizeSpeed;
   vertical-align: top;
   border-color: transparent;
+}
+
+.single-task .el-date-editor.el-input {
+  width: 140px !important;
+}
+
+.single-task .el-date-editor .el-input__inner {
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.date_asigne_row {
+  margin-bottom: 15px;
+}
+
+.projects-page-wrapp {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 1px;
+}
+
+.projects-page {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 

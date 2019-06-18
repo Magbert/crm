@@ -15,13 +15,15 @@ class ProjectsTableSeeder extends Seeder
         $all_tasks = [];
 
         foreach ($projects as  $project) {
-            $root_tasks = factory(App\Task::class, 5)->create();
+            $root_tasks = factory(App\Task::class, 5)->create([
+                'project_id' => $project->id
+            ]);
 
             foreach ($root_tasks as $root_task) {
                 $this->addSubtasks($root_task);
             }
 
-            $project->tasks()->saveMany($root_tasks);
+            //$project->tasks()->saveMany($root_tasks);
         }
     }
 
@@ -36,7 +38,9 @@ class ProjectsTableSeeder extends Seeder
     public function addSubtasks($parent, $level = 1)
     {
         $faker = Faker::create();
-        $tasks = factory(App\Task::class,  $faker->numberBetween(2, 4))->create();
+        $tasks = factory(App\Task::class,  $faker->numberBetween(2, 4))->create([
+            'project_id' => $parent->project->id
+        ]);
 
         foreach ($tasks as $task) {
             if ($this->max_level > $level) {

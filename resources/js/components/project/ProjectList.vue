@@ -5,7 +5,7 @@
       <el-table-column prop="name" label="Название">
         <template slot-scope="scope">
           <router-link
-            :to="{name: 'project.tasks', params: { id: scope.row.id }}"
+            :to="{name: 'tasks', params: { id: scope.row.id }}"
             :title="scope.row.name"
             class="project-list__name"
           >{{ scope.row.name }}</router-link>

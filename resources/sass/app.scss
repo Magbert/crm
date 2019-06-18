@@ -167,5 +167,34 @@ a {
         border-radius: 0 4px 4px 0;
     }
 }
+// .el-date-editor =====================================================
+.el-date-editor {
+    .el-input__inner {
+        cursor: pointer;
+    }
+}
+.el-picker-panel {
+    transition: none !important;
+}
 
-@import "tasks-tree";
+//======================================
+
+.v-context.context-menu {
+    padding: 0;
+    li > a {
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0.25rem;
+    }
+    .del-link {
+        a {
+            color: red;
+        }
+    }
+}
+
+@import "tasks/tasks-tree";
+@import "tasks/task";
+@import "project/project";

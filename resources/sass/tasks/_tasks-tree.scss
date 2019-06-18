@@ -1,0 +1,180 @@
+.tasks-tree {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 1px;
+    display: flex;
+    justify-content: center;
+    .form-new-task {
+        display: flex;
+        width: 100%;
+        padding: 10px;
+    }
+    .scrollable {
+        padding: 0 10px 15px 10px;
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 1000px;
+        min-width: 405px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+        &__header {
+            display: flex;
+            flex: 0 0 auto;
+            height: 50px;
+            align-items: center;
+            background: #fff;
+            border-bottom: 1px solid #e0e6e8;
+            border-radius: 4px 4px 0 0;
+        }
+        &__root > .task-item {
+            padding-left: 0;
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+    }
+    &__task {
+        flex: 0 1 675px;
+        min-width: 495px;
+        display: flex;
+        flex-direction: column;
+    }
+    &__row {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        justify-content: space-between;
+        height: $task_height;
+        border-radius: 4px 0 0 4px;
+        background-color: #fff;
+        border-color: $task_border_color;
+        border-style: solid;
+        border-width: 0 0 1px 4px;
+        color: $main-color;
+        cursor: pointer;
+        &__left {
+            align-items: center;
+            display: flex;
+            flex: 1 1000 auto;
+            min-width: 1px;
+            padding-right: 10px;
+        }
+        &__name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &:hover {
+            text-decoration: none;
+            .drag-icon {
+                visibility: visible;
+            }
+        }
+        &.router-link-active {
+            background-color: #edf8ff;
+            //border-color: #14aaf5;
+        }
+        .el-date-editor {
+            .el-input__inner {
+                padding: 0;
+                border: 0;
+                background: transparent;
+                text-align: right;
+            }
+            &.el-input {
+                width: 72px;
+                &.short-date {
+                    width: 44px;
+                }
+            }
+        }
+    }
+}
+
+//task-item
+.task-item {
+    margin-top: $task_space_top;
+    padding-left: $task_space_left;
+    position: relative;
+    transition: box-shadow 100ms ease-in-out;
+
+    &.handle-hover {
+        .task-item {
+            &:before,
+            &::after {
+                border-color: $blue;
+            }
+        }
+        // box-shadow: 0 5px 20px 0 rgba(21, 27, 38, 0.08);
+
+        // background-color: #edf8ff;
+        .tasks-tree__row {
+            border-left-color: $blue;
+        }
+    }
+    &.has-child {
+        //  padding-left: 35px;
+        & > .tasks-tree__row {
+            border-radius: 3px 3px 3px 0;
+        }
+    }
+    &:last-child {
+        &::before {
+            height: ($task_height / 2) + $task_space_top;
+        }
+    }
+    &::before,
+    &::after {
+        content: "";
+        left: 0px;
+        position: absolute;
+        border-color: $task_border_color;
+        border-style: solid;
+        border-width: 0;
+    }
+    &::before {
+        border-left-width: 1px;
+        bottom: 0;
+        top: -$task_space_top;
+    }
+    &::after {
+        border-top-width: 1px;
+        top: $task_height / 2;
+        width: $task_space_left;
+    }
+}
+.handle {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 30px;
+    cursor: grab;
+    &:hover {
+    }
+    .drag-icon {
+        visibility: hidden;
+        display: flex;
+        fill: #b7bfc6;
+        flex-shrink: 0;
+        height: 34px;
+        justify-content: center;
+        transition: fill 100ms ease-in-out;
+        width: 20px;
+    }
+}
+.scroller-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 1px;
+    width: 100%;
+}
+.scrollable {
+    overflow-y: auto;
+}
+
+//single-task

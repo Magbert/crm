@@ -1,17 +1,16 @@
 import Home from "./pages/Home";
 import Projects from "./pages/project/Projects";
 import Project from "./pages/project/Project";
-import Tasks from "./pages/project/Tasks";
 import Task from "./pages/task/Task";
 import TasksTree from "./pages/task/TasksTree";
-// import TasksTree2 from "./pages/task/TasksTree2";
 import Info from "./pages/project/Info";
+
+//Auth
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 
 import ProjectHeader from "./components/project/ProjectHeader";
 import ProjectsHeader from "./components/project/ProjectsHeader";
-import TaskComp from "./components/task/Task";
 
 const routes = [
     {
@@ -24,7 +23,6 @@ const routes = [
     },
     {
         path: "/projects",
-        // component: Projects,
         name: "projects",
         components: {
             default: Projects,
@@ -32,40 +30,29 @@ const routes = [
         }
     },
     {
-        path: "/project/:id",
-        redirect: { name: "project.tasks" },
+        path: "/:id",
+        redirect: { name: "tasks" },
         components: {
             default: Project,
             header: ProjectHeader
         },
         children: [
             {
-                path: "tasks",
-                component: Tasks,
-                name: "project.tasks"
-            },
-            {
-                path: "tree",
+                path: "/",
                 component: TasksTree,
-                name: "tree",
+                name: "tasks",
                 children: [
                     {
                         path: ":task_id",
-                        component: TaskComp,
-                        name: "tree-task"
+                        component: Task,
+                        name: "task"
                     }
                 ]
-                //TaskComp
             },
             {
                 path: "info",
                 component: Info,
                 name: "project.info"
-            },
-            {
-                path: "task/:task_id",
-                component: Task,
-                name: "task"
             }
         ]
     },

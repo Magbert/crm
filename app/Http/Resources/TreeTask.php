@@ -12,7 +12,9 @@ class TreeTask extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'subtasks' => new TreeTaskCollection($this->children)
+            'show' => true,
+            'due_time' => $this->due_time,
+            'children' => new TreeTaskCollection($this->children)
         ];
     }
 }

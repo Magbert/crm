@@ -1,0 +1,90 @@
+.single-task {
+    display: flex;
+    flex: 0 1 675px;
+    min-width: 495px;
+    margin-left: 15px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+    border-radius: 4px 4px 0 0;
+    .scrollable {
+        flex: 1 1 auto;
+    }
+    &__header {
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+        height: 50px;
+        background: #fff;
+        border-bottom: 1px solid #e0e6e8;
+        border-radius: 4px 4px 0 0;
+        padding: 0 10px;
+        &__tools {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+    &__footer {
+        height: 50px;
+        padding: 0 10px;
+        flex: 0 0 auto;
+        background-color: #fff;
+        border-top: 1px solid #e0e6e8;
+    }
+    &__name-input {
+        align-items: flex-start;
+        display: flex;
+        position: relative;
+        margin: 10px 0;
+        &__inner {
+            flex: 1 1 auto;
+            min-width: 1px;
+        }
+        &__shadow,
+        &__textarea {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 26px;
+            min-height: 0;
+            padding-bottom: 4px;
+            padding-top: 4px;
+        }
+        &__shadow {
+            border: 1px solid #d5dce0;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 0 9px;
+            padding-bottom: 4px;
+            padding-top: 4px;
+            resize: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            height: auto;
+            visibility: hidden;
+        }
+        &__textarea {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+            text-rendering: optimizeSpeed;
+            vertical-align: top;
+            border-color: transparent;
+        }
+    }
+    .el-date-editor {
+        &.el-input {
+            width: 140px !important;
+        }
+        .el-input__inner {
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    }
+}
+
+.date_asigne_row {
+    margin-bottom: 15px;
+}

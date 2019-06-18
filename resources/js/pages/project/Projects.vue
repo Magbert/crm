@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="projects-page-wrapp">
     <div class="ui-header">
       <el-button type="primary" @click="outerVisible = true" class="d-block ml-auto">Новый проект</el-button>
     </div>
-    <div class="projects-page white-block">
+    <div class="projects-page white-block scrollable">
       <project-list ref="projectList"></project-list>
     </div>
 
@@ -77,10 +77,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "sass/_variables.scss";
-.projects-page {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-}
 </style>

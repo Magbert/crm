@@ -2,62 +2,120 @@
   <div class="tasks-tree">
     <div class="tasks-tree__list">
       <div class="scroller-container">
-        <div class="tasks-tree__list__header">header</div>
+        <div class="tasks-tree__list__header">
+          <div class="form-new-task">
+            <el-input
+              size="small"
+              placeholder="Название задачи"
+              v-model="newTask.name"
+              @keyup.enter.native="addTask"
+            ></el-input>
+          </div>
+        </div>
         <div class="scrollable">
           <nested-draggable
             :tasks="tasks"
-            v-if="tasks"
+            v-if="tasks && project"
             class="tasks-tree__list__root"
-            @sort="sort"
+            group="asd"
+            @move-task="moveTask"
+            @open-cmenu="openContextMenu"
           />
         </div>
       </div>
     </div>
-
+    <vue-context ref="context_menu" class="context-menu">
+      <!-- <li>
+        <a href="#">
+          <span>Удалить</span>
+        </a>
+      </li>-->
+      <li class="del-link">
+        <a href="#" @click.prevent="removeTask()">
+          <span>Удалить</span>
+          <i class="el-icon-delete"></i>
+        </a>
+      </li>
+    </vue-context>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import nestedDraggable from "@/components/task/Nested";
+import { mapGetters } from "vuex";
+import { taskMixins } from "../../mixins";
 
 export default {
   data() {
     return {
-      tasks: null
+      newTask: {
+        name: ""
+      },
+      contextTaskId: null
     };
   },
   computed: {
-    project() {
-      return this.$store.getters.project;
-    }
+    ...mapGetters(["project", "tasks", "task"])
   },
 
   methods: {
-    fetchTasks() {
-      axios.get(`tasks/tree/1`).then(response => {
-        // ${this.project.id}
-        this.tasks = response.data.data;
+    removeTask() {
+      this.$store.dispatch("removeTask", {
+        task_id: this.contextTaskId
+      });
+
+      if (this.task.id == this.contextTaskId) {
+        this.$store.commit("resetTask");
+        this.$router.push({
+          name: "tasks",
+          params: { id: this.$route.params.id }
+        });
+      }
+      this.successMsg("Задача удалена!");
+    },
+
+    openContextMenu(event, data) {
+      this.contextTaskId = data.task_id;
+      this.$refs.context_menu.open(event);
+    },
+
+    addTask() {
+      if (!this.task) {
+        this.$store.dispatch("addRootTask", {
+          task_name: this.newTask.name,
+          project_id: this.$route.params.id
+        });
+      } else {
+        this.$store.dispatch("addSubTask", {
+          task_name: this.newTask.name,
+          parent_id: this.task.id,
+          project_id: this.$route.params.id
+        });
+      }
+      this.newTask.name = "";
+    },
+    moveTask(data) {
+      this.$store.dispatch("updateTasksOrder", {
+        tasks: data,
+        project_id: this.$route.params.id
       });
     },
-    sort(val) {
-      console.log(val);
+    fetchTasks() {
+      this.$store.dispatch("fetchTasks", {
+        project_id: this.$route.params.id
+      });
     }
   },
-  watch: {
-    tasks(val, oldVal) {
-      //console.log(val);
-    }
-  },
+
   created() {
-    // this.$store.dispatch("fetchProject", { id: this.$route.params.id });
     this.fetchTasks();
     document.body.classList.add("full-width");
   },
-  mounted() {},
   components: {
     nestedDraggable
-  }
+  },
+  mixins: [taskMixins]
 };
 </script>
 <style ></style>

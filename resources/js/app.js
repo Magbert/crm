@@ -9,19 +9,19 @@ import API from "./API";
 
 import Editor from "@/components/editor";
 import TaskRow from "@/components/task/TaskRow";
-import NewTaskForm from "@/components/task/NewTaskForm";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import locale from "element-ui/lib/locale/lang/ru-RU";
 import pagination from "laravel-vue-pagination";
+import { VueContext } from "vue-context";
 
 Vue.use(VueRouter);
 Vue.use(ElementUI, { locale });
 
+Vue.component("vue-context", VueContext);
 Vue.component("pagination", pagination);
 Vue.component("editor", Editor);
 Vue.component("task-row", TaskRow);
-Vue.component("new-task-form", NewTaskForm);
 
 const router = new VueRouter({
     routes,
