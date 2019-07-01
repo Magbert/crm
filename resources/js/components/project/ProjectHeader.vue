@@ -8,12 +8,12 @@
       </div>
       <span class="header__info__block-2" v-if="project.user">
         Сотрудник:
-        <router-link to="#">{{ project.user.name }}</router-link>
+        <router-link :to="{ name: 'user', params: {user_id: project.user.id} }">{{ project.user.name }}</router-link>
       </span>
     </div>
     <div class="header__nav">
-      <router-link :to="{name: 'tasks', params: { id: project.id }}">Задачи</router-link>
-      <router-link :to="{name: 'project.info', params: { id: project.id }}">Проект</router-link>
+      <router-link :to="{name: 'tasks', params: { project_id: project.id }}">Задачи</router-link>
+      <router-link :to="{name: 'project.info', params: { project_id: project.id }}">Проект</router-link>
     </div>
   </div>
 </template>

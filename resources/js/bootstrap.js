@@ -9,10 +9,10 @@ try {
 
 window.axios = require("axios");
 let token = document.head.querySelector('meta[name="csrf-token"]');
-let api_url = document.head.querySelector('meta[name="api-url"]').content;
+var api_url = window.api_url = document.head.querySelector('meta[name="api-url"]').content;
+// window.axios.defaults.baseURL = api_url;
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-window.axios.defaults.baseURL = api_url;
 
 if (token) {
     window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;

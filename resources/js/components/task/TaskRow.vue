@@ -2,7 +2,7 @@
   <div @contextmenu.prevent="$emit('open-cmenu', $event, {task_id: task.id })">
     <router-link
       class="tasks-tree__row"
-      :to="{ name: 'task',  params: { id: projectId, task_id: task.id } }"
+      :to="{ name: 'task',  params: { project_id: projectId, task_id: task.id } }"
       tag="div"
     >
       <div class="tasks-tree__row__left">

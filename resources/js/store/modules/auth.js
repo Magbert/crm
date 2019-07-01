@@ -1,3 +1,5 @@
+import API from "@/API";
+
 export default {
     state: {
         token: localStorage.getItem("access_token") || null
@@ -14,8 +16,7 @@ export default {
         destroyToken(context) {
             if (context.getters.loggedIn) {
                 return new Promise((resolve, reject) => {
-                    axios
-                        .post("/logout")
+                    API.logout()
                         .then(response => {
                             localStorage.removeItem("access_token");
                             context.commit("destroyToken");
@@ -31,12 +32,11 @@ export default {
         },
         retrieveToken(context, credentials) {
             return new Promise((resolve, reject) => {
-                axios
-                    .post("/login", {
-                        username: credentials.username,
-                        password: credentials.password
-                    })
-                    .then(response => {
+                API.login({
+                    username: credentials.username,
+                    password: credentials.password
+                })
+                .then(response => {
                         const token = response.data.access_token;
 
                         localStorage.setItem("access_token", token);

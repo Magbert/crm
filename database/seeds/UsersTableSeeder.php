@@ -21,6 +21,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Рандомные сотрудники
-        factory(App\User::class, 20)->create();
+        factory(App\User::class, 7)->create();
     }
 }

@@ -14,12 +14,13 @@ use App\Http\Requests\StoreTask;
 class TaskController extends Controller
 {
     /**
-     * Выводит задачи проекта верхнего уровня
+     * Выводит задачи проекта
      */
     public function index(Project $project)
     {
-        $tasks = $project->tasks()->whereIsRoot()->get();
-        return new RootTaskCollection($tasks);
+        $tasks = $project->tasks()->defaultOrder()->get();
+        
+        return new TreeTaskCollection($tasks->toTree(), $tasks->count());
     }
 
     /**
@@ -54,7 +55,7 @@ class TaskController extends Controller
     {
         $task->update($request->all());
 
-        return Response::make('', 202);
+        return response('', 202);
     }
 
     /**
@@ -64,7 +65,7 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return Response::make('', 200);
+        return response('', 200);
     }
 
     /**

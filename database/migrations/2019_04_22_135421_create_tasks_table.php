@@ -16,6 +16,8 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('assignee_id')->nullable();
+            $table->unsignedBigInteger('task_status_id')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->boolean('completed')->default(false);
@@ -26,6 +28,16 @@ class CreateTasksTable extends Migration
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')
+                ->onDelete('set null');
+
+            $table->foreign('assignee_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+
+            $table->foreign('task_status_id')
+                ->references('id')
+                ->on('task_statuses')
                 ->onDelete('set null');
         });
     }

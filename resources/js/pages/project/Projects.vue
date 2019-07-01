@@ -1,7 +1,12 @@
 <template>
   <div class="projects-page-wrapp">
     <div class="ui-header">
-      <el-button type="primary" @click="outerVisible = true" class="d-block ml-auto">Новый проект</el-button>
+      <el-button
+        type="primary"
+        @click="outerVisible = true"
+        class="d-block ml-auto"
+        plain
+      >Новый проект</el-button>
     </div>
     <div class="projects-page white-block scrollable">
       <project-list ref="projectList"></project-list>
@@ -32,6 +37,8 @@
 </template>
 <script>
 import ProjectList from "@/components/project/ProjectList.vue";
+import API from "@/API";
+
 export default {
   data() {
     return {
@@ -43,27 +50,21 @@ export default {
   },
   methods: {
     fetchUsers() {
-      axios.get("/users/users").then(respose => {
+      API.fetchUsers().then(respose => {
         this.users = respose.data.data;
       });
     },
     createProject() {
-      axios
-        .post("/projects", {
-          name: this.name,
-          user_id: this.user_id
-        })
-        .then(respose => {
-          let project_id = respose.data.data.id;
-          this.$router.push({
-            name: "project.info",
-            params: { id: project_id }
-          });
-          this.$refs.projectList.getResults();
-          this.outerVisible = false;
-          this.name = "";
-          this.user_id = null;
+      API.createProject({
+        name: this.name,
+        user_id: this.user_id
+      }).then(respose => {
+        let project_id = respose.data.data.id;
+        this.$router.push({
+          name: "project.info",
+          params: { project_id: project_id }
         });
+      });
     }
   },
   created() {
@@ -75,6 +76,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-</style>

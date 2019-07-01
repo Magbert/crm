@@ -11,13 +11,9 @@ export default {
   },
   computed: {},
   beforeCreate() {
-    this.$store.commit("setMainClass", "small-width");
-    this.$store.dispatch("fetchProject", { id: this.$route.params.id });
+    this.$store.dispatch("fetchProject", this.$route.params.project_id);
   }
 };
 </script>
-
-<style lang="scss">
-</style>
 
 

@@ -1,10 +1,6 @@
 <?php
 
-
-Route::get('/test/{task}', 'TestController@index');
 Route::get('/{any}', 'AppController@index')->where('any', '.*');
-
-
 
 
 

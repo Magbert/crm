@@ -37,14 +37,14 @@
         </a>
       </li>
     </vue-context>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
 <script>
 import nestedDraggable from "@/components/task/Nested";
 import { mapGetters } from "vuex";
-import { taskMixins } from "../../mixins";
+import { taskMixins } from "@/mixins";
 
 export default {
   data() {
@@ -61,16 +61,11 @@ export default {
 
   methods: {
     removeTask() {
-      this.$store.dispatch("removeTask", {
-        task_id: this.contextTaskId
-      });
+      this.$store.dispatch("removeTask", { task_id: this.contextTaskId });
 
       if (this.task.id == this.contextTaskId) {
         this.$store.commit("resetTask");
-        this.$router.push({
-          name: "tasks",
-          params: { id: this.$route.params.id }
-        });
+        this.$router.push({ name: "tasks", params: { project_id: this.$route.params.project_id } });
       }
       this.successMsg("Задача удалена!");
     },
@@ -84,13 +79,13 @@ export default {
       if (!this.task) {
         this.$store.dispatch("addRootTask", {
           task_name: this.newTask.name,
-          project_id: this.$route.params.id
+          project_id: this.$route.params.project_id
         });
       } else {
         this.$store.dispatch("addSubTask", {
           task_name: this.newTask.name,
           parent_id: this.task.id,
-          project_id: this.$route.params.id
+          project_id: this.$route.params.project_id
         });
       }
       this.newTask.name = "";
@@ -98,13 +93,11 @@ export default {
     moveTask(data) {
       this.$store.dispatch("updateTasksOrder", {
         tasks: data,
-        project_id: this.$route.params.id
+        project_id: this.$route.params.project_id
       });
     },
     fetchTasks() {
-      this.$store.dispatch("fetchTasks", {
-        project_id: this.$route.params.id
-      });
+      this.$store.dispatch("fetchTasks", { project_id: this.$route.params.project_id });
     }
   },
 

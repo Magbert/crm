@@ -11,7 +11,7 @@ class Project extends Model
 
     protected $fillable = ['name', 'description', 'user_id'];
     protected $perPage = 30;
-    protected $with = ['user'];
+    protected $with = ['customer'];
 
     public function user()
     {

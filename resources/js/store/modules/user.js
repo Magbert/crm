@@ -1,4 +1,4 @@
-import Axios from "axios";
+import API from "@/API";
 
 export default {
     state: {
@@ -11,7 +11,7 @@ export default {
     },
     actions: {
         fetchUsers({ commit }) {
-            axios.get(`/users/users`).then(respose => {
+            API.fetchUsers().then(respose => {
                 commit("users", respose.data.data);
             });
         }

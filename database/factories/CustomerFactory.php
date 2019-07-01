@@ -6,10 +6,10 @@ use App\Customer;
 
 $factory->define(Customer::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->company(),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' =>  bcrypt('secret'),
+        'password' =>  'secret',
         'remember_token' => Str::random(10),
     ];
 });

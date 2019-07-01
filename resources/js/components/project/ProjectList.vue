@@ -5,7 +5,7 @@
       <el-table-column prop="name" label="Название">
         <template slot-scope="scope">
           <router-link
-            :to="{name: 'tasks', params: { id: scope.row.id }}"
+            :to="{name: 'tasks', params: { project_id: scope.row.id }}"
             :title="scope.row.name"
             class="project-list__name"
           >{{ scope.row.name }}</router-link>
@@ -17,8 +17,8 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="Клиент" width="200">
-        <template slot-scope="scope" v-if="scope.row.user">
-          <a href="#">Клиент</a>
+        <template slot-scope="scope" v-if="scope.row.customer">
+          <a href="#">{{ scope.row.customer.name }}</a>
         </template>
       </el-table-column>
       <el-table-column prop="address" label="Статус"></el-table-column>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import API from "@/API";
+
 export default {
   name: "project-list",
 
@@ -38,7 +40,7 @@ export default {
   },
   methods: {
     getResults(page = 1) {
-      axios.get(`/projects?page=${page}`).then(response => {
+      API.fetchProjectsPaginate(page).then(response => {
         this.projects = response.data;
       });
     }

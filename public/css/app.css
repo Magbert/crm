@@ -10862,6 +10862,43 @@ a {
   color: red;
 }
 
+.w-1000 {
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+}
+
+.w-850 {
+  max-width: 850px;
+  width: 100%;
+  margin: auto;
+}
+
+.content-block {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 1000px;
+  padding: 5px;
+  margin-right: -10px;
+}
+
+.content-wrapp {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content-wrapp .ui-header {
+  padding-bottom: 10px;
+}
+
+.white-bg {
+  background: #fff;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+}
+
 .tasks-tree {
   display: flex;
   flex: 1 1 auto;
@@ -11162,6 +11199,43 @@ a {
   flex: 1 1 auto;
   flex-direction: column;
   overflow-y: auto;
+}
+
+.customer-row {
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+}
+
+.user-row {
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+  display: flex;
+}
+
+.user-row__name {
+  font-weight: bold;
+  color: #0a192c;
+  font-size: 17px;
+}
+
+.user-row__role {
+  color: #575757;
+}
+
+.user-row__thumb {
+  margin-right: 10px;
+  display: flex;
+}
+
+.user-row__thumb__img {
+  background: #ccc;
+  width: 50px;
 }
 
 

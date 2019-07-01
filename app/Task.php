@@ -25,6 +25,11 @@ class Task extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function assignee()
+    {
+        return $this->belongsTo(User::class, 'assignee_id');
+    }
+
     public function scopeMinified($query)
     {
         return $query->select(['id', 'name', 'completed', 'parent_id', 'due_at', '_lft', '_rgt']);

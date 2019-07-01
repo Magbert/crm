@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import API from "@/API";
+
 export default {
   data() {
     return {
@@ -71,7 +73,7 @@ export default {
   methods: {
     saveProject() {
       this.$store.dispatch("updateProject").then(() => {
-        this.$store.dispatch("fetchProject", { id: this.project.id });
+        this.$store.dispatch("fetchProject", this.project.id );
         this.$message({
           message: "Проект обновлен!",
           type: "success"
@@ -87,7 +89,7 @@ export default {
       }
     },
     fetchUsers() {
-      axios.get("/users/users").then(respose => {
+      API.fetchUsers().then(respose => {
         this.users = respose.data.data;
       });
     }

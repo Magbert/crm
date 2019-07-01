@@ -1,51 +1,40 @@
 <?php
-
 // Projects
-Route::prefix('projects')->group(function () {
-    Route::name('projects.')->group(function () {
-        Route::get('/', 'ProjectController@index')->name("index");
-        Route::post('/', 'ProjectController@store')->name("store");
-        Route::get('/{project}', 'ProjectController@show')->name("show");
-        Route::put('/{project}', 'ProjectController@update')->name("update");
-        Route::delete('/{project}', 'ProjectController@destroy')->name("destroy");
-    });
+Route::prefix('projects')->name('projects.')->group(function () {
+    Route::get('/', 'ProjectController@index')->name("index");
+    Route::post('/', 'ProjectController@store')->name("store");
+    Route::get('/{project}', 'ProjectController@show')->name("show");
+    Route::put('/{project}', 'ProjectController@update')->name("update");
+    Route::delete('/{project}', 'ProjectController@destroy')->name("destroy");
 });
 
-// Tasks
-// Route::group(
-//     [
-//         'namespace' => 'Task',
-//         'prefix' => 'tasks',
-//         'name' => 'tasks.'
-//     ]
-// )->group(function () { 
-
-// });
-
-Route::namespace('Task')->group(function () {
-    Route::prefix('tasks')->group(function () {
-        Route::name('tasks.')->group(function () {
-            Route::get('/root/{project}', 'TaskController@index')->name("index");
-            Route::get('/tree/{project}', 'TaskController@tree')->name("tree");
-            Route::put('/tree/{project}', 'TaskController@rebuild')->name("rebuild");
-            Route::get('/{task}', 'TaskController@show')->name("show");
-            Route::post('/{project}', 'TaskController@store')->name("store");
-            Route::put('/{task}', 'TaskController@update')->name("update");
-            Route::delete('/{task}', 'TaskController@destroy')->name("destroy");
-
-            Route::put('/{task}/due_date', 'TaskTimeController@setDueDate')->name("set_due_date");
-        });
-    });
+// Task
+Route::namespace('Task')->prefix('tasks')->name('tasks.')->group(function () {
+    Route::get('/tree/{project}', 'TaskController@index')->name("index");
+    Route::put('/tree/{project}', 'TaskController@rebuild')->name("rebuild");
+    Route::get('/{task}', 'TaskController@show')->name("show");
+    Route::post('/{project}', 'TaskController@store')->name("store");
+    Route::put('/{task}', 'TaskController@update')->name("update");
+    Route::delete('/{task}', 'TaskController@destroy')->name("destroy");
 });
 
-
+// Customer
+Route::namespace('Customer')->prefix('customers')->name('customers.')->group(function () {
+    Route::get('/', 'CustomerController@index')->name("index");
+    Route::post('/', 'CustomerController@store')->name("store");
+    Route::get('/{customer}', 'CustomerController@show')->name("show");
+    Route::put('/{customer}', 'CustomerController@update')->name("update");
+    Route::delete('/{customer}', 'CustomerController@destroy')->name("destroy");
+});
 
 // Users
-Route::prefix('users')->name('user.')->group(function () {
-    Route::get('/', 'UserController@current')->name("current");
-    Route::get('/users', 'UserController@index')->name("index");
+Route::namespace('User')->prefix('users')->name('users.')->group(function () {
+    Route::get('/', 'UserController@index')->name("index");
+    Route::post('/', 'UserController@store')->name("store");
+    Route::get('/current', 'UserController@current')->name("current");
     Route::get('/{user}', 'UserController@show')->name("show");
 });
+
 
 
 

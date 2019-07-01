@@ -7,13 +7,15 @@ use App\Project;
 use Illuminate\Support\Facades\Response;
 use App\Http\Resources\Project as ProjectResource;
 use App\Http\Resources\ProjectCollection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
     public function index()
     {
         $projects = Project::latest()->paginate();
-
+        
         return new ProjectCollection($projects);
     }
 
@@ -34,16 +36,16 @@ class ProjectController extends Controller
 
     public function update(StoreProject $request, Project $project)
     {
-        $affected = $project->update($request->all());
+        $project->update($request->all());
 
-        return Response::make('', 202);
+        return response('', 202);
     }
 
 
     public function destroy(Project $project)
     {
-        $affected = $project->delete();
+        $project->delete();
 
-        return Response::make('', 200);
+        return response('', 200);
     }
 }

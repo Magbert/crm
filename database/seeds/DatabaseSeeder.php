@@ -10,17 +10,18 @@ class DatabaseSeeder extends Seeder
         'users',
         'roles',
         'customers',
+        'task_statuses',
     ];
 
 
     public function run()
     {
         $this->cleanDatabase();
-        // $this->call(UsersTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CustomersTableSeeder::class);
         $this->call(ProjectsTableSeeder::class);
+        $this->call(TaskStatusesTableSeeder::class);
     }
 
 

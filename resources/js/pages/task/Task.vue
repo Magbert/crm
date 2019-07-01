@@ -22,35 +22,46 @@
         </div>
         <!--/ ssingle-task__name__input -->
 
-        <div class="date_asigne_row">
-          <el-date-picker
-            v-model="due_time"
-            type="date"
-            placeholder="Укажите дату"
-            :format="dateFormat"
-            value-format="timestamp"
-            size="small"
-          ></el-date-picker>
-        </div>
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="Задача" name="task">
+            <div class="date_asigne_row">
+              <user-picker></user-picker>
+              <el-date-picker
+                v-model="due_time"
+                type="date"
+                placeholder="Укажите дату"
+                :format="dateFormat"
+                value-format="timestamp"
+              ></el-date-picker>
+            </div>
 
-        <!-- single-task__description -->
-        <div class="single-task__description">
-          <editor v-model="description"></editor>
-        </div>
-        <!-- /single-task__description -->
+            <!-- single-task__description -->
+            <div class="single-task__description">
+              <editor v-model="description"></editor>
+            </div>
+            <!-- /single-task__description -->
+          </el-tab-pane>
+          <el-tab-pane label="Комментарии" name="comments">Комментарии</el-tab-pane>
+          <el-tab-pane label="Документы" name="docs">Документы</el-tab-pane>
+        </el-tabs>
       </div>
-      <div class="single-task__footer">sdfsdf</div>
+      <div class="single-task__footer">footer</div>
     </div>
   </div>
 </template>
 
 <script>
-import { taskMixins } from "../../mixins";
 import _ from "lodash";
+import { taskMixins } from "@/mixins";
+import { mapGetters } from "vuex";
+
+import UserPicker from "@/components/user/UserPicker"
 
 export default {
   data() {
-    return {};
+    return {
+      activeTab: "task"
+    };
   },
   computed: {
     due_time: {
@@ -77,27 +88,18 @@ export default {
         this.updateTask("description", description);
       }
     },
-    task() {
-      return this.$store.getters.task;
-    }
+    ...mapGetters(["project", "task"])
   },
   methods: {
     remove() {
-      this.$store.dispatch("removeTask", {
-        project_id: this.$route.params.id,
-        task_id: this.task.id
-      });
+      this.$store.dispatch("removeTask", { task_id: this.task.id });
       this.successMsg("Задача удалена!");
-
       this.close();
     },
+
     close() {
       this.$store.commit("resetTask");
-
-      this.$router.push({
-        name: "tasks",
-        params: { id: this.$route.params.id }
-      });
+      this.$router.push({ name: "tasks", params: { project_id: this.project.id } });
     },
 
     updateTask(key, value) {
@@ -108,15 +110,14 @@ export default {
     },
 
     fetchTasks(task_id) {
-      this.$store.dispatch("fetchTask", { task_id });
+      this.$store.dispatch("fetchTask", task_id );
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.fetchTasks(to.params.task_id);
-    next();
   },
   created() {
     this.fetchTasks(this.$route.params.task_id);
+  },
+  components: {
+    UserPicker
   },
   mixins: [taskMixins]
 };

@@ -35,3 +35,14 @@ export function removeDeep(tasks, id) {
         }
     }
 }
+
+export function route(){
+    /**
+     * @apiRoutes see AppController, app.blade.php, bootstrap.js
+     * */ 
+    let route = apiRoutes[arguments[0]];
+    let i = 1;
+    return route.replace(/\{([^}]*)\}/g, () => {
+        return arguments[i++];
+    });
+}

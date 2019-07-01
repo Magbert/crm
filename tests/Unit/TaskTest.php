@@ -73,8 +73,7 @@ class TaskTest extends TestCase
     {
         $response = $this->json('GET', route('tasks.index', $this->project->id));
 
-        $response->assertStatus(200)
-            ->assertJsonCount(self::ROOT_TASKS_COUNT, 'data');
+        $response->assertStatus(200);
     }
 
     /** @test */

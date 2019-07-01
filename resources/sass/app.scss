@@ -194,7 +194,43 @@ a {
         }
     }
 }
+.w-1000{
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+}
+.w-850{
+    max-width: 850px;
+    width: 100%;
+    margin: auto;
+}
+.content-block {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 1000px;
+    padding: 5px;
+    margin-right: -10px;
+    &__inner {
+        
+    }
+}
+.content-wrapp{
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100%;
+    .ui-header{
+        padding-bottom: 10px;
+    }
+}
+.white-bg {
+    background: #fff;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
+}
 
 @import "tasks/tasks-tree";
 @import "tasks/task";
 @import "project/project";
+@import "customer/customer";
+@import "user/user";

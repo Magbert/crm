@@ -11,7 +11,7 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $projects = factory(App\Project::class, 5)->create();
+        $projects = factory(App\Project::class, 20)->create();
         $all_tasks = [];
 
         foreach ($projects as  $project) {

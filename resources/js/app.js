@@ -5,7 +5,6 @@ import VueRouter from "vue-router";
 import routes from "./routes";
 import { store } from "./store";
 import App from "./App.vue";
-import API from "./API";
 
 import Editor from "@/components/editor";
 import TaskRow from "@/components/task/TaskRow";

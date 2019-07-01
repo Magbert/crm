@@ -1,4 +1,4 @@
-import Axios from "axios";
+import API from "@/API";
 
 export default {
     state: {
@@ -10,24 +10,17 @@ export default {
         }
     },
     actions: {
-        fetchProject(context, project) {
-            axios.get(`/projects/${project.id}`).then(respose => {
+        fetchProject(context, project_id) {
+            API.fetchProject(project_id)
+            .then(respose => {
                 context.commit("setProject", respose.data.data);
             });
         },
-        updateProject({ context, commit, getters }) {
-            return axios
-                .put(`/projects/${getters.project.id}`, getters.project)
-                .then(respose => {
-                    //console.log(respose);
-                });
+        updateProject({ getters }) {
+            return API.updateProject(getters.project.id, getters.project);
         },
-        removeProject({ context, commit, getters }) {
-            return axios
-                .delete(`/projects/${getters.project.id}`)
-                .then(respose => {
-                    //console.log(respose);
-                });
+        removeProject({ getters }) {
+            return API.removeProject(getters.project.id);
         }
     },
     getters: {
