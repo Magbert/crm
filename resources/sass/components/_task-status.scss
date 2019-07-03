@@ -1,0 +1,12 @@
+.task-status{
+    .el-select__caret.el-input__icon.el-icon-arrow-up{
+        display: none;
+    }
+    .el-input__inner{
+        border: 1px solid transparent;
+        color: #409EFF;
+        font-weight: 500;
+        // padding-right: 15px !important;
+
+    }
+}

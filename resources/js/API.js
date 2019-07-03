@@ -11,6 +11,12 @@ let API = {
     removeTask: (task_id) => axios.delete(route('tasks.destroy', task_id)),
     updateTasksOrder: (project_id, reordered_tasks) => axios.put(route('tasks.rebuild', project_id), reordered_tasks),
     updateTaskDebounce: _.debounce((task_id, data) => API.updateTask(task_id, data), 500),
+    // assignee
+    setAssignee: (task_id, data) => axios.post(route('tasks.assignee.assign', task_id), data),
+    removeAssignee: (task_id) => axios.delete(route('tasks.assignee.remove', task_id)),
+    // status
+    fetchTaskStatuses: () => axios.get(route('tasks.statuses.index')),
+    setStatus: (task_id, data) => axios.post(route('tasks.statuses.set', task_id), data),
 
     // projects
     fetchProject: (project_id) => axios.get(route('projects.show', project_id)),

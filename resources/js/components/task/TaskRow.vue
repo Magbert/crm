@@ -16,6 +16,7 @@
         <span class="tasks-tree__row__name">{{ task.name }}</span>
       </div>
       <div class="tasks-tree__row__right" @click.stop>
+        <span v-if="task.assignee">{{ task.assignee.name }}</span>
         <el-date-picker
           v-if="due_time"
           v-model="due_time"

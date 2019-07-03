@@ -3,13 +3,13 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use App\Project;
 use App\Task;
+use App\User;
 use App\Http\Resources\TreeTaskCollection;
 use App\Http\Resources\Task as TaskResource;
-use App\Http\Resources\RootTaskCollection;
 use App\Http\Requests\StoreTask;
+use App\TaskStatus;
 
 class TaskController extends Controller
 {
@@ -87,5 +87,31 @@ class TaskController extends Controller
     public function rebuild(Project $project, Request $request)
     {
         return Task::scoped(['project_id' => $project->id])->rebuildTree($request->tree);
+    }
+
+    /**
+     * Назначаем исполнителя
+     */
+    public function assign(Task $task, Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+        $task->assignee()->associate($user)->save();
+
+        return response('', 200);
+    }
+
+    public function removeAssignee(Task $task)
+    {
+        $task->assignee()->dissociate()->save();
+
+        return response('', 200);
+    }
+
+    public function setStatus(Task $task, Request $request)
+    {
+        $status = TaskStatus::findOrFail($request->status_id);
+        $task->status()->associate($status)->save();
+
+        return response('', 200);
     }
 }

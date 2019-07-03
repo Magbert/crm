@@ -10,6 +10,9 @@ export default {
         resetTask: state => (state.task = null),
         setTask: (state, task) => (state.task = Object.assign({}, state.task, task)),
         setTasks: (state, tasks) => (state.tasks = tasks),
+        setStatus: (state, status) => (state.task.status = status),
+        setAssignee: (state, assignee) => (state.task.assignee = assignee),
+        removeAssignee: (state ) => (state.task.assignee = null),
         updateTask: (state, payload) => (state.task = Object.assign({}, state.task, payload)),
         updateTaskInTree(state, payload) {
             let task = findDeep(state.tasks, payload.task_id);
@@ -79,7 +82,26 @@ export default {
         removeTask(context, payload) {
             API.removeTask(payload.task_id)
             .then(() => context.commit("removeTask", payload.task_id));
-        }
+        },
+
+        setAssignee(context, payload) {
+            API.setAssignee(payload.task_id, { 'user_id' : payload.assignee.id });
+            context.commit("setAssignee", payload.assignee);
+            context.commit("updateTaskInTree", payload);
+        },
+
+        removeAssignee(context, payload) {
+            API.removeAssignee(payload.task_id);
+            context.commit("removeAssignee");
+            context.commit("updateTaskInTree", { assignee: null, task_id: payload.task_id });
+        },
+
+        setStatus(context, payload) {
+            console.log(payload);
+            API.setStatus(payload.task_id, { 'status_id' : payload.status.id });
+            context.commit("setStatus", payload.status);
+            context.commit("updateTaskInTree", payload);
+        },
     },
     getters: {
         task: state => state.task,

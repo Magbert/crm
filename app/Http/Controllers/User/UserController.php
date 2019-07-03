@@ -8,6 +8,7 @@ use App\User;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\User as UserResource;
 use App\Http\Requests\StoreUser;
+use App\Http\Resources\User\MiniUserCollection;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $users = User::with('projects')->latest()->paginate();
         
-        return new UserCollection($users);
+        return new MiniUserCollection($users);
     }
     
     /**

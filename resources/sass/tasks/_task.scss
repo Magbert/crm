@@ -6,6 +6,12 @@
     background-color: #fff;
     box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
     border-radius: 4px 4px 0 0;
+    .task-status{
+        flex-basis: 250px;
+    }
+    .user-picker{
+        margin-right: 10px;
+    }
     .scrollable {
         flex: 1 1 auto;
     }
@@ -87,4 +93,6 @@
 
 .date_asigne_row {
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }

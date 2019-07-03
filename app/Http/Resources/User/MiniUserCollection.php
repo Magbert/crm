@@ -14,6 +14,9 @@ class MiniUserCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'count' => $this->collection->count(),
+            'data' => $this->collection,
+        ];
     }
 }

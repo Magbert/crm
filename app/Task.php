@@ -11,14 +11,11 @@ class Task extends Model
 {
     use NodeTrait;
 
-    protected $fillable = ['name', 'description', 'project_id', 'due_at', 'due_time'];
+    protected $with = ['status'];
+    
+    protected $fillable = ['name', 'description', 'project_id', 'due_at', 'due_time', 'status_id'];
 
     protected $dates = ['created_at', 'updated_at', 'due_at'];
-
-    // protected $casts = [
-    //     'due_at' => 'timestamp'
-    // ];
-    // protected $hidden = ['description'];
 
     public function project()
     {
@@ -30,6 +27,11 @@ class Task extends Model
         return $this->belongsTo(User::class, 'assignee_id');
     }
 
+    public function status()
+    {
+        return $this->belongsTo(TaskStatus::class);
+    }
+
     public function scopeMinified($query)
     {
         return $query->select(['id', 'name', 'completed', 'parent_id', 'due_at', '_lft', '_rgt']);
@@ -38,6 +40,11 @@ class Task extends Model
     public function getDueTimeAttribute()
     {
         return $this->due_at ? $this->due_at->valueOf() : null;
+    }
+
+    public function getCreatedTimeAttribute()
+    {
+        return $this->created_at->valueOf();
     }
 
     public function setDueTimeAttribute($due_time)

@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id')->nullable();
             $table->unsignedBigInteger('assignee_id')->nullable();
-            $table->unsignedBigInteger('task_status_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->boolean('completed')->default(false);
@@ -35,7 +35,7 @@ class CreateTasksTable extends Migration
                 ->on('users')
                 ->onDelete('set null');
 
-            $table->foreign('task_status_id')
+            $table->foreign('status_id')
                 ->references('id')
                 ->on('task_statuses')
                 ->onDelete('set null');

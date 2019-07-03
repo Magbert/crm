@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapp w-850" v-if="user">
         <h2 class="mb-3">{{ user.name }}</h2>
-        <div class="content-block scrollable white-bg">
+        <div class="content-block scrollable white-bg p-3">
              <el-tabs v-model="activeTab">
                 <el-tab-pane label="Проекты" name="projects">
                     <el-table :data="user.projects" style="width: 100%">
@@ -23,24 +23,36 @@
                         <el-table-column prop="address" label="Статус"></el-table-column>
                     </el-table>
                 </el-tab-pane>
-                <el-tab-pane label="Профиль" name="profile">
+                <el-tab-pane label="Профиль" name="profile" >
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Имя</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-4 col-form-label">Имя</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" v-model="user.name">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-4 col-form-label">Email</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" v-model="user.email">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Пароль</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-4 col-form-label">Телефон</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" v-model="user.phone">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Телефон (Служ)</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" v-model="user.of_phone">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Пароль</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" v-model="user.password">
                                 </div>
                             </div>
@@ -59,7 +71,8 @@ export default {
   data() {
     return {
         activeTab: 'projects',
-        user: null
+        user: null,
+        errors: null,
     };
   },
   methods: {
