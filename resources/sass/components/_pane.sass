@@ -1,0 +1,33 @@
+$pane-border-color: #e0e6e8
+
+.pane 
+  display: flex
+  flex-grow: 1
+  flex-direction: column
+  width: 100%
+  min-height: 0
+  background-color: #fff
+  box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15)
+  border-radius: 4px 4px 0 0
+  max-width: 800px
+  margin: 0 auto
+  
+  &_strech
+    max-width: initial
+    margin: initial
+
+  &__content 
+    flex-grow: 1
+    overflow-y: auto
+    min-height: 0
+
+  &__header 
+    border-bottom: 1px solid $pane-border-color
+
+  &__footer
+    border-top: 1px solid $pane-border-color
+
+  &__content,
+  &__header,
+  &__footer
+    padding: 10px

@@ -228,6 +228,9 @@ a {
     border-radius: 4px 4px 0 0;
     box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
 }
+.pagination{
+    margin: 0;
+}
 
 @import "tasks/tasks-tree";
 @import "tasks/task";

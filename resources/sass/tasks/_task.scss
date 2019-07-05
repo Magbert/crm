@@ -1,11 +1,6 @@
 .single-task {
-    display: flex;
     flex: 0 1 675px;
-    min-width: 495px;
-    margin-left: 15px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
-    border-radius: 4px 4px 0 0;
+    margin-left: 15px !important;
     .task-status{
         flex-basis: 250px;
     }
@@ -18,12 +13,6 @@
     &__header {
         display: flex;
         align-items: center;
-        flex: 0 0 auto;
-        height: 50px;
-        background: #fff;
-        border-bottom: 1px solid #e0e6e8;
-        border-radius: 4px 4px 0 0;
-        padding: 0 10px;
         &__tools {
             display: flex;
             width: 100%;
@@ -31,11 +20,7 @@
         }
     }
     &__footer {
-        height: 50px;
-        padding: 0 10px;
-        flex: 0 0 auto;
-        background-color: #fff;
-        border-top: 1px solid #e0e6e8;
+        
     }
     &__name-input {
         align-items: flex-start;
@@ -95,4 +80,22 @@
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+}
+
+.red-time{
+    .el-input__inner, .el-input__prefix{
+        color: #F56C6C;
+    }
+    .el-input__inner{
+        border-color: #F56C6C;
+    }
+}
+
+.is-red-time{
+    .el-date-editor .el-input__inner, .tasks-tree__row__name{
+        color: #F56C6C;
+    }
+    .tasks-tree__row{
+        border-color: #F56C6C;
+    }
 }

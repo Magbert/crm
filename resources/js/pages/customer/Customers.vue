@@ -1,37 +1,39 @@
 <template>
-  <div class="content-wrapp">
-     <div class="ui-header w-850">
-        <el-button type="primary" @click="modalVisible = true" class="d-block ml-auto" size="small" plain>Добавить компанию</el-button>
-      </div>
-    <div class="content-block scrollable" v-if="customers">
-      <div class="content-block__inner w-850">
-        <div class="customers-list">
-          <div v-for="customer in customers.data" :key="customer.id" class="customer-row">
-            <router-link :to="{ name: 'customer', params: {customer_id: 49} }" >{{ customer.name }}</router-link>
-          </div>
-        </div>
-        <pagination :data="customers" @pagination-change-page="fetchCustomers"></pagination>
+  <pane>
+    <template #header>
+      <el-button
+        type="primary"
+        @click="modalVisible = true"
+        size="small"
+      >Добавить компанию</el-button>
+    </template>
+    <div class="customers-list" v-if="customers">
+      <div v-for="customer in customers.data" :key="customer.id" class="customer-row">
+        <router-link :to="{ name: 'customer', params: {customer_id: 49} }">{{ customer.name }}</router-link>
       </div>
     </div>
-
-    <el-dialog title="Новая компания" :visible.sync="modalVisible" :append-to-body="true" width="500px">
+    <el-dialog
+      title="Новая компания"
+      :visible.sync="modalVisible"
+      :append-to-body="true"
+      width="500px"
+    >
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Название</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" v-model="customer.name">
+          <input type="text" class="form-control" v-model="customer.name" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" v-model="customer.email">
+          <input type="text" class="form-control" v-model="customer.email" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Пароль</label>
         <div class="col-sm-10 flex-row d-flex">
-          <input type="text" class="form-control" v-model="customer.password">
-          <!-- <el-button icon="el-icon-refresh" size="small"></el-button>           -->
+          <input type="text" class="form-control" v-model="customer.password" />
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -39,7 +41,10 @@
         <el-button type="primary" @click="createCustomer()">Создать</el-button>
       </div>
     </el-dialog>
-  </div>
+    <template #footer>
+      <pagination :data="customers" @pagination-change-page="fetchCustomers" v-if="customers"></pagination>
+    </template>
+  </pane>
 </template>
 
 
@@ -59,7 +64,7 @@ export default {
     };
   },
   methods: {
-    createCustomer(){
+    createCustomer() {
       API.addCustomer(this.customer).then(response => {
         console.log(response);
       });

@@ -6,6 +6,7 @@ import routes from "./routes";
 import { store } from "./store";
 import App from "./App.vue";
 
+import Pane from "@/components/base/Pane";
 import Editor from "@/components/editor";
 import TaskRow from "@/components/task/TaskRow";
 import ElementUI from "element-ui";
@@ -17,6 +18,7 @@ import { VueContext } from "vue-context";
 Vue.use(VueRouter);
 Vue.use(ElementUI, { locale });
 
+Vue.component("pane", Pane);
 Vue.component("vue-context", VueContext);
 Vue.component("pagination", pagination);
 Vue.component("editor", Editor);

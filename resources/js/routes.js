@@ -20,7 +20,14 @@ import CustomersHeader from "./components/customer/CustomersHeader";
 import UsersHeader from "./components/user/UsersHeader";
 import UserHeader from "./components/user/UserHeader";
 
+import Test from "./pages/Test";
+
 const routes = [
+    {
+        path: "/test",
+        name: "test",
+        component: Test,
+    },
     //==================================== Сотрудники
     {
         path: "/users",

@@ -1,5 +1,5 @@
 <template>
-  <div @contextmenu.prevent="$emit('open-cmenu', $event, {task_id: task.id })">
+  <div @contextmenu.prevent="$emit('open-cmenu', $event, {task_id: task.id })" :class="{'is-red-time' : isRedTime(due_time)}">
     <router-link
       class="tasks-tree__row"
       :to="{ name: 'task',  params: { project_id: projectId, task_id: task.id } }"
@@ -13,7 +13,10 @@
             ></path>
           </svg>
         </i>
-        <span class="tasks-tree__row__name">{{ task.name }}</span>
+        <div class="tasks-tree__name-wrapp">
+          <span class="tasks-tree__row__name">{{ task.name }}</span>
+          <span v-if="task.status"><el-tag size="mini" type="info">{{ task.status.name }}</el-tag></span>
+        </div>
       </div>
       <div class="tasks-tree__row__right" @click.stop>
         <span v-if="task.assignee">{{ task.assignee.name }}</span>
@@ -27,7 +30,7 @@
           size="mini"
           :clearable="false"
           prefix-icon="non"
-          v-bind:class="{'short-date': isCurrentDate(due_time)}"
+          :class="{'short-date': isCurrentDate(due_time)}"
           align="right"
         ></el-date-picker>
       </div>

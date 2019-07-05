@@ -1,42 +1,32 @@
 <template>
   <div class="tasks-tree">
-    <div class="tasks-tree__list">
-      <div class="scroller-container">
-        <div class="tasks-tree__list__header">
-          <div class="form-new-task">
-            <el-input
-              size="small"
-              placeholder="Название задачи"
-              v-model="newTask.name"
-              @keyup.enter.native="addTask"
-            ></el-input>
-          </div>
-        </div>
-        <div class="scrollable">
-          <nested-draggable
-            :tasks="tasks"
-            v-if="tasks && project"
-            class="tasks-tree__list__root"
-            group="asd"
-            @move-task="moveTask"
-            @open-cmenu="openContextMenu"
-          />
-        </div>
-      </div>
-    </div>
-    <vue-context ref="context_menu" class="context-menu">
-      <!-- <li>
-        <a href="#">
-          <span>Удалить</span>
-        </a>
-      </li>-->
-      <li class="del-link">
-        <a href="#" @click.prevent="removeTask()">
-          <span>Удалить</span>
-          <i class="el-icon-delete"></i>
-        </a>
-      </li>
-    </vue-context>
+    <pane>
+      <template #header>
+        <el-input
+          size="small"
+          placeholder="Название задачи"
+          v-model="newTask.name"
+          @keyup.enter.native="addTask"
+        ></el-input>
+      </template>
+      <nested-draggable
+        :tasks="tasks"
+        v-if="tasks && project"
+        class="tasks-tree__list"
+        group="taskgroup"
+        @move-task="moveTask"
+        @open-cmenu="openContextMenu"
+      />
+      <vue-context ref="context_menu" class="context-menu">
+        <li class="del-link">
+          <a href="#" @click.prevent="removeTask()">
+            <span>Удалить</span>
+            <i class="el-icon-delete"></i>
+          </a>
+        </li>
+      </vue-context>
+    </pane>
+
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -65,7 +55,10 @@ export default {
 
       if (this.task.id == this.contextTaskId) {
         this.$store.commit("resetTask");
-        this.$router.push({ name: "tasks", params: { project_id: this.$route.params.project_id } });
+        this.$router.push({
+          name: "tasks",
+          params: { project_id: this.$route.params.project_id }
+        });
       }
       this.successMsg("Задача удалена!");
     },
@@ -97,7 +90,9 @@ export default {
       });
     },
     fetchTasks() {
-      this.$store.dispatch("fetchTasks", { project_id: this.$route.params.project_id });
+      this.$store.dispatch("fetchTasks", {
+        project_id: this.$route.params.project_id
+      });
     }
   },
 

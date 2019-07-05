@@ -11,7 +11,15 @@ export const taskMixins = {
                 message: message,
                 type: "success"
             });
-        }
+        },
+        isRedTime(due_time){
+            let red_time = new Date(due_time) - Date.now();
+            red_time = Math.ceil(red_time / (1000 * 3600 * 24));
+            if(due_time !== null && red_time < 7){
+                return true;
+            }
+            return false;
+        },
     },
     computed: {
         dateFormat() {

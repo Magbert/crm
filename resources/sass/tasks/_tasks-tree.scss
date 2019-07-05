@@ -1,35 +1,12 @@
 .tasks-tree {
     display: flex;
-    flex: 1 1 auto;
     min-height: 1px;
-    display: flex;
-    justify-content: center;
     .form-new-task {
-        display: flex;
         width: 100%;
-        padding: 10px;
-    }
-    .scrollable {
-        padding: 0 10px 15px 10px;
     }
     &__list {
-        display: flex;
-        flex-direction: column;
-        flex: 0 1 1000px;
-        min-width: 405px;
-        background: #fff;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px 0 rgba(21, 27, 38, 0.15);
-        &__header {
-            display: flex;
-            flex: 0 0 auto;
-            height: 50px;
-            align-items: center;
-            background: #fff;
-            border-bottom: 1px solid #e0e6e8;
-            border-radius: 4px 4px 0 0;
-        }
-        &__root > .task-item {
+        &__header {}
+        & > .task-item {
             padding-left: 0;
             &::before,
             &::after {
@@ -94,7 +71,6 @@
         }
     }
 }
-
 //task-item
 .task-item {
     margin-top: $task_space_top;
