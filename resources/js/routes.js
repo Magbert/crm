@@ -23,6 +23,21 @@ import UserHeader from "./components/user/UserHeader";
 import Test from "./pages/Test";
 
 const routes = [
+   //==================================== Auth
+    {
+        path: "/login",
+        name: "login",
+        component: Login,
+        meta: {
+            requiresGuest: true
+        }
+    },
+    {
+        path: "/logout",
+        name: "logout",
+        component: Logout
+    },
+    //================================
     {
         path: "/test",
         name: "test",
@@ -107,19 +122,7 @@ const routes = [
     },
 
     //==================================== Auth
-    {
-        path: "/login",
-        name: "login",
-        component: Login,
-        meta: {
-            requiresGuest: true
-        }
-    },
-    {
-        path: "/logout",
-        name: "logout",
-        component: Logout
-    }
+    
 ];
 
 export default routes;

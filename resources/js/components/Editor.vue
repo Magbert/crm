@@ -18,18 +18,14 @@ import { quillEditor } from "vue-quill-editor";
 
 export default {
   props: ["value"],
-
   data() {
     return {
       editorOption: {
-        // theme: "bubble",
         modules: {
           toolbar: [
-            // [{ size: ["small", false, "large"] }],
             ["bold", "italic", "underline", "strike"],
             [{ list: "ordered" }, { list: "bullet" }],
             [{ color: [] }, { background: [] }]
-            // ["link"]
           ],
           history: {
             delay: 1000,
@@ -38,7 +34,6 @@ export default {
           }
         }
       }
-      //editor: null
     };
   },
   computed: {
@@ -48,10 +43,7 @@ export default {
   },
   methods: {
     onEditorChange(event) {
-      this.$emit(
-        "input",
-        this.editor.getText() ? this.editor.root.innerHTML : ""
-      );
+      this.$emit( "input", this.editor.getText() ? this.editor.root.innerHTML : "" );
     }
   },
   mounted() {
@@ -62,18 +54,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.textEditor {
-  .ql-editor {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-  }
-  .ql-toolbar.ql-snow {
-    border-bottom: 0;
-  }
-}
-</style>

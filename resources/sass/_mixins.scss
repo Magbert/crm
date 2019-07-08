@@ -1,0 +1,73 @@
+@mixin sides($sides) {
+    //DEFAULT!
+    $top: 0;
+    $right: 0;
+    $bottom: 0;
+    $left: 0;
+    
+    //Make the initail string
+      $sidesStr: "#{ $sides }";
+    
+    //Make a list of the properties
+    $propsArray: ();
+    @for $p from 1 through 4 {
+      
+      $length: str-length($sidesStr);
+      $firstSpace : str-index($sidesStr, ' ');
+      
+      @if $firstSpace {
+        //get the property
+        $prop : unquote(str-slice($sidesStr, 1, $firstSpace - 1));
+        $propsArray: append($propsArray, $prop);
+        //trim the string
+        $sidesStr: str-slice($sidesStr, $firstSpace + 1, $length);
+      } @else {
+        //add the remainder and empty the string
+        $prop : unquote($sidesStr);
+        @if $sidesStr != "" {
+          $propsArray: append($propsArray, $prop);
+          $sidesStr: "";
+        }
+        
+      }
+    }
+    $listLength : length($propsArray);
+    //Set the values
+    @if $listLength == 1 {
+      $p1 : nth($propsArray, 1);
+      $top: $p1;
+      $right: $p1;
+      $bottom: $p1;
+      $left: $p1;
+    } @else if $listLength == 2 {
+      $p1 : nth($propsArray, 1);
+      $p2 : nth($propsArray, 2);
+      $top: $p1;
+      $right: $p2;
+      $bottom: $p1;
+      $left: $p2;
+    }  @else if $listLength == 3 {
+      $p1 : nth($propsArray, 1);
+      $p2 : nth($propsArray, 2);
+      $p3 : nth($propsArray, 3);
+      $top: $p1;
+      $right: $p2;
+      $bottom: $p3;
+      $left: $p2;
+    } @else if $listLength == 4 {
+      $p1 : nth($propsArray, 1);
+      $p2 : nth($propsArray, 2);
+      $p3 : nth($propsArray, 3);
+      $p4 : nth($propsArray, 4);
+      $top: $p1;
+      $right: $p2;
+      $bottom: $p3;
+      $left: $p4;
+    }
+    
+    //OUTPUT
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }

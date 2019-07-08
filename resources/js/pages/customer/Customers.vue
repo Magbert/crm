@@ -75,6 +75,9 @@ export default {
       });
     }
   },
+  created(){
+    this.$store.commit('setHeader', {title: "sadasdasd"})
+  },
   mounted() {
     this.fetchCustomers();
   }

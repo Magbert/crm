@@ -1,46 +1,21 @@
-// Fonts
-//@import url("https://fonts.googleapis.com/css?family=Nunito");
-
 // Variables
 @import "variables";
+@import "mixins";
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-@import "project/project.scss";
-.main-wrapp {
-    display: flex;
-    flex-direction: column;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 0;
-}
-.crm-ui {
-    display: flex;
-    flex: 1;
-    min-height: 1px;
+html, body{
+    height: 100%;
     overflow: hidden;
 }
 
-.main-container {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 920px;
-    position: relative;
-}
-.content {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    min-height: 1px;
-    position: relative;
-    padding: 10px 10px 0 10px;
-}
+
+
+
+
+
+
 .project {
     display: flex;
     flex: 1 1 auto;
@@ -232,6 +207,7 @@ a {
     margin: 0;
 }
 
+@import "project/project.scss";
 @import "tasks/tasks-tree";
 @import "tasks/task";
 @import "project/project";

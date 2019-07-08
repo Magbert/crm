@@ -1,0 +1,25 @@
+.sidebar
+  display: flex
+  flex-direction: column
+  width: 244px
+  background-color: $main-color
+  &__header
+    display: flex
+    height: 25px
+    margin: 20px 0
+    background-image: url(/img/logo.svg)
+    background-position: 15px center
+    background-repeat: no-repeat
+    background-size: 110px 19px
+  &__link
+    align-items: center
+    display: flex
+    height: 40px
+    padding: 0 10px 0 15px
+    &,
+    &:link,
+    &:visited
+      color: $white-color
+    &:hover
+      text-decoration: unset
+      background-color: rgba(255, 255, 255, 0.08)

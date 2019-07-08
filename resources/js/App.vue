@@ -1,39 +1,19 @@
-<template>
-  <div id="app">
-    <div class="main-wrapp" :class="this.$store.getters.mainclass">
-      <div class="crm-ui">
-        <sidebar-component></sidebar-component>
-        <main class="main-container">
-          <header-component>
-            <router-view name="header"></router-view>
-          </header-component>
-          <div class="content">
-            <router-view></router-view>
-          </div>
-        </main>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  #app.app
+    v-sidebar
+    .app__main
+      v-header
+      router-view.app__content
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Header from "./components/base/Header";
+import Sidebar from "./components/base/Sidebar";
 
 export default {
-  computed: {
-    loggedIn() {
-      return this.$store.getters.loggedIn;
-    }
-  },
   components: {
-    "header-component": Header,
-    "sidebar-component": Sidebar
+    "v-header": Header,
+    "v-sidebar": Sidebar
   }
 };
 </script>
-
-<style lang="scss">
-</style>
-

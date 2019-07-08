@@ -1,0 +1,58 @@
+$app: app
+$app-header: #{$app}__header
+$app-header-nav: #{$app-header}__nav
+
+.#{$app}
+    display: flex
+    position: fixed
+    +sides(0)
+    &__main
+        display: flex
+        flex: 1
+        flex-direction: column
+    &__content
+        display: flex
+        flex: 1 1 auto
+        flex-direction: column
+        padding: 10px 10px 0 10px
+        min-height: 1px
+  
+.#{$app-header}
+    display: flex
+    min-height: 65px
+    align-items: center
+    padding: 0 20px
+    background-color: #fff
+    box-shadow: $main-shadow
+    &__left
+        display: flex
+        align-self: stretch
+        flex-direction: column
+        justify-content: space-between
+    &__title
+        font-size: 20px
+        font-weight: 500
+        margin: auto
+        max-width: 350px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+
+.#{$app-header-nav}
+    display: flex
+    &__link
+        display: inline-block
+        color: #848f99
+        font-size: 13px
+        font-weight: 500
+        padding-bottom: 10px
+        transition-duration: 0.2s
+        text-decoration: none !important
+        &:hover
+            box-shadow: inset 0 -2px #b7bfc6
+            color: #151b26
+        &:not(:last-of-type)
+            margin-right: 20px
+        &.exact--active
+            box-shadow: inset 0 -2px $blue
+            color: $blue

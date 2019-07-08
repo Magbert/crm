@@ -26,7 +26,9 @@ Vue.component("task-row", TaskRow);
 
 const router = new VueRouter({
     routes,
-    mode: "history"
+    mode: "history",
+    linkActiveClass: "active--link",
+    linkExactActiveClass: "exact--active",
 });
 
 router.beforeEach((to, from, next) => {

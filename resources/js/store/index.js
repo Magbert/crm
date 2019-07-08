@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import header from "./modules/header";
 import auth from "./modules/auth";
 import project from "./modules/project";
 import tasks from "./modules/tasks";
@@ -21,6 +22,7 @@ export const store = new Vuex.Store({
     },
     actions: {},
     modules: {
+        header: header,
         auth: auth,
         project: project,
         user: user,
