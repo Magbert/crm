@@ -10661,6 +10661,10 @@ body {
   overflow: hidden;
 }
 
+label {
+  margin: 0;
+}
+
 .project {
   display: flex;
   flex: 1 1 auto;

@@ -3,7 +3,8 @@
     v-sidebar
     .app__main
       v-header
-      router-view.app__content
+      .app__content
+        router-view
 </template>
 
 <script>

@@ -1,4 +1,4 @@
-import { findDeep, removeDeep, route } from "@/helpers";
+import { findDeep, removeDeep } from "@/helpers";
 import API from "@/API";
 
 export default {
@@ -16,6 +16,7 @@ export default {
         updateTask: (state, payload) => (state.task = Object.assign({}, state.task, payload)),
         updateTaskInTree(state, payload) {
             let task = findDeep(state.tasks, payload.task_id);
+
             for (let prop in payload) {
                 if (_.has(task, prop)) {
                     task[prop] = payload[prop];

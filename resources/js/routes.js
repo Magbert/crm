@@ -4,7 +4,7 @@ import Project from "./pages/project/Project";
 import Task from "./pages/task/Task";
 import TasksTree from "./pages/task/TasksTree";
 import Info from "./pages/project/Info";
-//Usrs
+//Users
 import Users from "./pages/user/Users";
 import User from "./pages/user/User";
 //Customers
@@ -14,11 +14,6 @@ import Customer from "./pages/customer/Customer";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 
-import ProjectHeader from "./components/project/ProjectHeader";
-import ProjectsHeader from "./components/project/ProjectsHeader";
-import CustomersHeader from "./components/customer/CustomersHeader";
-import UsersHeader from "./components/user/UsersHeader";
-import UserHeader from "./components/user/UserHeader";
 
 import Test from "./pages/Test";
 
@@ -47,28 +42,19 @@ const routes = [
     {
         path: "/users",
         name: "users",
-        components: {
-            default: Users,
-            header: UsersHeader
-        }
+        component: Users
     },
     {
         path: "/user/:user_id",
         name: "user",
-        components: {
-            default: User,
-            header: UserHeader
-        }
+        component: User
     },
 
     //==================================== Клиенты
     {
         path: "/customers",
         name: "customers",
-        components: {
-            default: Customers,
-            header: CustomersHeader
-        }
+        component: Customers
     },
     {
         path: "/customer/:customer_id",
@@ -88,18 +74,12 @@ const routes = [
     {
         path: "/projects",
         name: "projects",
-        components: {
-            default: Projects,
-            header: ProjectsHeader
-        }
+        component: Projects
     },
     {
         path: "/:project_id",
         redirect: { name: "tasks" },
-        components: {
-            default: Project,
-            header: ProjectHeader
-        },
+        component: Project,
         children: [
             {
                 path: "/",
